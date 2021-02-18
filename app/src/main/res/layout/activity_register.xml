@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -14,98 +14,113 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="30dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="30dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp">
+
                 <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="170dp"
-                    android:layout_height="170dp"
-                    android:background="@color/design_default_color_primary_dark"
-                    app:shapeAppearanceOverlay="@style/Widget.ChatApp.ShapableImageView.round"
-                    android:layout_centerInParent="true"/>
+                    android:id="@+id/register_image"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:scaleType="centerCrop"
+                    android:padding="3dp"
+                    app:strokeWidth="2dp"
+                    app:strokeColor="@color/black"
+                    android:layout_centerInParent="true"
+                    android:background="@color/design_default_color_primary"
+                    app:shapeAppearanceOverlay="@style/Widget.ChatApp.ShapableImageView.round" />
+
                 <TextView
+                    android:id="@+id/register_image_tv"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="SELECT PHOTO"
                     android:layout_centerInParent="true"
-                    />
+                    android:gravity="center"
+                    android:text="SELECT PHOTO"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.ChatApp.TextField.Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
-                style="@style/Widget.ChatApp.TextField.Layout">
+                android:hint="Username">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/register_username_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTintMode="screen"
                     android:inputType="text"
-                    android:textColorHint="@color/white"
-                    android:backgroundTintMode="screen"/>
+                    android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.ChatApp.TextField.Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
-                style="@style/Widget.ChatApp.TextField.Layout">
+                android:hint="Email">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/register_email_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
+                    android:backgroundTintMode="screen"
                     android:importantForAutofill="no"
-                    android:backgroundTintMode="screen"/>
+                    android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.ChatApp.TextField.Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
                 android:layout_marginBottom="10dp"
-                app:endIconMode="password_toggle"
-                style="@style/Widget.ChatApp.TextField.Layout">
+                android:hint="Password"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/register_password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:backgroundTintMode="screen"/>
+                    android:backgroundTintMode="screen"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/register_button"
+                style="@style/Widget.ChatApp.Button.RoundCorners"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Register"
-                android:padding="14dp"
                 android:layout_marginBottom="12dp"
-                style="@style/Widget.ChatApp.Button.RoundCorners"/>
+                android:padding="14dp"
+                android:text="Register" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Already have an account?"/>
+                    android:text="Already have an account?" />
+
                 <TextView
+                    android:id="@+id/register_login_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="4dp"
-                    android:textStyle="bold"
-                    android:text="Login"/>
+                    android:text="Login"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

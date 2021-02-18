@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "529649722198",
+    "project_id": "chat-app-4233c",
+    "storage_bucket": "chat-app-4233c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529649722198:android:efdba962739c584a99ecf7",
+        "android_client_info": {
+          "package_name": "com.keennhoward.chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529649722198-a5glehhkjdcne574234dgakfn1ucfcgv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChEYcyx1j4yoJcAebntpks-6IM3_wHq-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529649722198-a5glehhkjdcne574234dgakfn1ucfcgv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
