@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".views.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -59,6 +59,8 @@
                     android:layout_height="wrap_content"
                     android:backgroundTintMode="screen"
                     android:inputType="text"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                    android:maxLength="24"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,6 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTintMode="screen"
+                    android:maxLength="64"
                     android:importantForAutofill="no"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -89,6 +92,7 @@
                     android:id="@+id/register_password_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="128"
                     android:backgroundTintMode="screen"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
