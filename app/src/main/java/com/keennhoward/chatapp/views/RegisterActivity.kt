@@ -47,15 +47,6 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
 
-        binding.registerImage.setOnClickListener {
-            val selectImageIntent = Intent(Intent.ACTION_PICK)
-            selectImageIntent.type = "image/*"
-            startActivityForResult(
-                selectImageIntent,
-                SELECT_IMAGE_REQUEST
-            )
-        }
-
         binding.registerButton.setOnClickListener {
             if (!inputFieldChecker()) return@setOnClickListener
 
@@ -64,6 +55,15 @@ class RegisterActivity : AppCompatActivity() {
                 binding.registerPasswordEt.text.toString(),
                 binding.registerUsernameEt.text.toString(),
                 selectedPhotoUri!!
+            )
+        }
+
+        binding.registerImage.setOnClickListener {
+            val selectImageIntent = Intent(Intent.ACTION_PICK)
+            selectImageIntent.type = "image/*"
+            startActivityForResult(
+                selectImageIntent,
+                SELECT_IMAGE_REQUEST
             )
         }
 

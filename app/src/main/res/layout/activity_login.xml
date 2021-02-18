@@ -10,66 +10,90 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:padding="30dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="30dp">
+
+            <ImageView
+                android:layout_width="110dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_chat_24"
+                android:backgroundTint="@color/design_default_color_primary"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="70dp"
+                android:fontFamily="@font/roboto_black"
+                android:text="CHAT APP"
+                android:textColor="@color/design_default_color_primary"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.ChatApp.TextField.Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username"
-                style="@style/Widget.ChatApp.TextField.Layout">
+                android:hint="Username">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTintMode="screen"
                     android:inputType="text"
-                    android:textColorHint="@color/white"
-                    android:backgroundTintMode="screen"/>
+                    android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.ChatApp.TextField.Layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
                 android:layout_marginBottom="10dp"
-                app:endIconMode="password_toggle"
-                style="@style/Widget.ChatApp.TextField.Layout">
+                android:hint="Password"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:backgroundTintMode="screen"/>
+                    android:backgroundTintMode="screen"
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                style="@style/Widget.ChatApp.Button.RoundCorners"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:padding="14dp"
                 android:layout_marginBottom="12dp"
-                style="@style/Widget.ChatApp.Button.RoundCorners"/>
+                android:padding="14dp"
+                android:text="Login" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Don't have an account?"/>
+                    android:text="Don't have an account?" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="4dp"
-                    android:textStyle="bold"
-                    android:text="Register"/>
+                    android:text="Register"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
