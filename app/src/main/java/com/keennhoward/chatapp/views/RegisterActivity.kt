@@ -1,7 +1,6 @@
 package com.keennhoward.chatapp.views
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +9,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.keennhoward.chatapp.LoginActivity
-import com.keennhoward.chatapp.MainActivity
+import com.keennhoward.chatapp.dialog.LoadingDialog
 import com.keennhoward.chatapp.databinding.ActivityRegisterBinding
 import com.keennhoward.chatapp.viewmodel.RegisterViewModel
 import com.keennhoward.chatapp.viewmodel.RegisterViewModelFactory
@@ -40,6 +38,7 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "User created ${it.metadata.toString()}", Toast.LENGTH_SHORT)
                     .show()
                 val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
             }
@@ -55,7 +54,11 @@ class RegisterActivity : AppCompatActivity() {
                 selectedPhotoUri!!
             )
 
-            
+            //loading dialog
+
+            val loadingDialog =
+                LoadingDialog(this@RegisterActivity)
+            loadingDialog.startLoadingDialog()
         }
 
         binding.registerImage.setOnClickListener {

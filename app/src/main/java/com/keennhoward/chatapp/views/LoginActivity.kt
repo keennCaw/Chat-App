@@ -1,4 +1,4 @@
-package com.keennhoward.chatapp
+package com.keennhoward.chatapp.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.keennhoward.chatapp.databinding.ActivityLoginBinding
 import com.keennhoward.chatapp.viewmodel.LoginViewModel
 import com.keennhoward.chatapp.viewmodel.LoginViewModelFactory
-import com.keennhoward.chatapp.views.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 

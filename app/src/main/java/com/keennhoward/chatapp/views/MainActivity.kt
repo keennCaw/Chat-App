@@ -1,4 +1,4 @@
-package com.keennhoward.chatapp
+package com.keennhoward.chatapp.views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +13,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.ActivityMainBinding
 import com.keennhoward.chatapp.viewmodel.MainViewModel
 import com.keennhoward.chatapp.viewmodel.MainViewModelFactory
-import com.keennhoward.chatapp.views.RegisterActivity
+import com.keennhoward.chatapp.views.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 
