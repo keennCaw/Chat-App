@@ -12,7 +12,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.keennhoward.chatapp.User
 import java.util.*
 
-class LoginRegisterRepository(val application: Application){
+class RegisterRepository(val application: Application){
 
     private var firebaseUser: MutableLiveData<FirebaseUser> = MutableLiveData()
 

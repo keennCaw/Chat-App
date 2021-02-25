@@ -5,11 +5,11 @@ import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import com.keennhoward.chatapp.model.LoginRegisterRepository
+import com.keennhoward.chatapp.model.RegisterRepository
 
-class LoginRegisterViewModel(application: Application) : AndroidViewModel(application) {
+class RegisterViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var repository = LoginRegisterRepository(application)
+    private var repository = RegisterRepository(application)
     private var firebaseUser = repository.getFirebaseUser()
 
 
