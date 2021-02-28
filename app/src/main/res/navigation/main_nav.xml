@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/newMessageFragment"
         android:name="com.keennhoward.chatapp.NewMessageFragment"
-        android:label="fragment_new_message"
+        android:label="Search User"
         tools:layout="@layout/fragment_new_message" >
         <action
             android:id="@+id/action_newMessageFragment_to_messagesFragment"

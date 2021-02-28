@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.navigation.Navigation
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.FragmentMessagesBinding
 
@@ -38,13 +39,12 @@ class MessagesFragment : Fragment() {
         }
 
         binding.messageSearchUsers.setOnClickListener {
-            Toast.makeText(requireActivity(), "search a user by name", Toast.LENGTH_SHORT).show()
+            Navigation.findNavController(view).navigate(MessagesFragmentDirections.actionMessagesFragmentToNewMessageFragment())
+            onCreateMessageButtonClicked()
         }
 
         binding.messageLocationUsers.setOnClickListener {
-
             Toast.makeText(requireActivity(), "search a user by location", Toast.LENGTH_SHORT).show()
-
         }
 
 
@@ -97,3 +97,4 @@ class MessagesFragment : Fragment() {
     }
 
 }
+
