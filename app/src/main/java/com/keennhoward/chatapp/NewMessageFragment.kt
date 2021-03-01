@@ -1,5 +1,6 @@
 package com.keennhoward.chatapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keennhoward.chatapp.databinding.FragmentNewMessageBinding
 import com.keennhoward.chatapp.viewmodel.NewMessageViewModel
 import com.keennhoward.chatapp.viewmodel.NewMessageViewModelFactory
+import com.keennhoward.chatapp.views.ChatLogActivity
 
 class NewMessageFragment : Fragment(), UserClickListener {
 
@@ -22,6 +24,10 @@ class NewMessageFragment : Fragment(), UserClickListener {
     private var _binding: FragmentNewMessageBinding? = null
 
     private val binding get() = _binding!!
+
+    companion object{
+        const val USER_KEY = "USER_KEY"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,13 +54,14 @@ class NewMessageFragment : Fragment(), UserClickListener {
         })
 
         newMessageViewModel.fetchUsers()
-
-
         return view
     }
 
     override fun onUserItemClickListener(user: User) {
         Toast.makeText(requireContext(), "${user.username}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireActivity(), ChatLogActivity::class.java)
+        intent.putExtra(USER_KEY, user)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {

@@ -14,6 +14,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.keennhoward.chatapp.R
+import com.keennhoward.chatapp.User
 import com.keennhoward.chatapp.databinding.ActivityMainBinding
 import com.keennhoward.chatapp.viewmodel.MainViewModel
 import com.keennhoward.chatapp.viewmodel.MainViewModelFactory
@@ -29,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
 
+    companion object{
+        var currentUser: User? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,6 +43,10 @@ class MainActivity : AppCompatActivity() {
         val factory = MainViewModelFactory(application)
 
         mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+
+        mainViewModel.getCurrentUserData().observe(this, Observer {
+            currentUser = it
+        })
 
         mainViewModel.getFirebaseUser().observe(this, Observer {
             if(it==null){
