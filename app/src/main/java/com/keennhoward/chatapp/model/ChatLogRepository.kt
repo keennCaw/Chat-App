@@ -5,20 +5,30 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.keennhoward.chatapp.ChatMessage
+import com.keennhoward.chatapp.User
 
-class ChatLogRepository {
+class ChatLogRepository(private val toId:String, private val fromId:String) {
 
 
     private var firebaseAuth = FirebaseAuth.getInstance()
 
     private var chatLog = MutableLiveData<ArrayList<ChatMessage>>()
 
+    private var chatLogList = ArrayList<ChatMessage>()
 
-    fun sendMessage(text: String, toId: String) {
+    private var currentUserData:MutableLiveData<User> = MutableLiveData()
 
-        val fromId = firebaseAuth.uid!!
+    init {
+        listenForMessages()
+    }
+
+    fun getChatLog():MutableLiveData<ArrayList<ChatMessage>>{
+        return chatLog
+    }
 
 
+
+    fun sendMessage(text: String) {
 
         val fromReference =
             FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
@@ -53,8 +63,30 @@ class ChatLogRepository {
 
     private fun listenForMessages() {
 
+        val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
 
+
+
+        ref.addChildEventListener(object:ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                chatLogList.add(snapshot.getValue(ChatMessage::class.java)!!)
+                chatLog.postValue(chatLogList)
+                Log.d(" Chat Log ", chatLogList.toString())
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+            }
+
+        })
     }
-
 
 }
