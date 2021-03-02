@@ -36,6 +36,10 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
         val toReference =
             FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
+        val latestMessageFromRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
+
+        val latestMessageToRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$toId/$fromId")
+
         val chatMessage = ChatMessage(
             fromReference.key!!,
             text,
@@ -59,6 +63,10 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
             .addOnFailureListener {
                 Log.d("To Chat Message", "Failed")
             }
+
+        latestMessageFromRef.setValue(chatMessage)
+
+        latestMessageToRef.setValue(chatMessage)
     }
 
     private fun listenForMessages() {
