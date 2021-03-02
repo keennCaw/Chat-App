@@ -56,17 +56,19 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
                 Log.d("From Chat Message", "Failed")
             }
 
-        toReference.setValue(chatMessage)
-            .addOnSuccessListener {
-                Log.d("To Chat Message", "Success")
-            }
-            .addOnFailureListener {
-                Log.d("To Chat Message", "Failed")
-            }
-
         latestMessageFromRef.setValue(chatMessage)
 
-        latestMessageToRef.setValue(chatMessage)
+        if(fromId!=toId){
+            toReference.setValue(chatMessage)
+                .addOnSuccessListener {
+                    Log.d("To Chat Message", "Success")
+                }
+                .addOnFailureListener {
+                    Log.d("To Chat Message", "Failed")
+                }
+
+            latestMessageToRef.setValue(chatMessage)
+        }
     }
 
     private fun listenForMessages() {

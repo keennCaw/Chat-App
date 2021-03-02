@@ -6,9 +6,8 @@ data class LatestMessage(
     val fromId:String,
     val toId:String,
     val timeStamp:Long,
-    val uid:String,
     val username:String,
     val profileImageUrl:String
 ) {
-    constructor():this("","","","",-1,"","","")
+    constructor():this("","","","",-1,"","")
 }

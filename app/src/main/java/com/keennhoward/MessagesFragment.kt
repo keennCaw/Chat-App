@@ -10,14 +10,19 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.keennhoward.chatapp.LatestMessage
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.FragmentMessagesBinding
 import com.keennhoward.chatapp.viewmodel.MessagesViewModel
 import com.keennhoward.chatapp.viewmodel.MessagesViewModelFactory
 
-class MessagesFragment : Fragment() {
+class MessagesFragment : Fragment(), MessageItemClickListener {
 
     private var _binding:FragmentMessagesBinding? = null
     private val binding get() = _binding!!
@@ -43,13 +48,29 @@ class MessagesFragment : Fragment() {
 
         val factory = MessagesViewModelFactory()
 
+        val messagesAdapter = MessagesAdapter(this, requireContext())
+
+
+
+        binding.latestMessagesRecyclerview.apply {
+            layoutManager = LinearLayoutManager(requireActivity())
+            adapter = messagesAdapter
+            addItemDecoration(DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL))
+        }
+
         messagesViewModel = ViewModelProvider(requireActivity(),factory).get(MessagesViewModel::class.java)
-        //messagesViewModel.listenForLatestMassages()
+
+        messagesViewModel.getMessageUserInfo()
 
         messagesViewModel.getLatestMessages().observe(requireActivity(), Observer {
-            Log.d("latest Messages", it.toString())
+            messagesViewModel.getMessageUserInfo()
         })
 
+        messagesViewModel.getMessagesInfo().observe(requireActivity(), Observer {
+            Log.d("Submitted List:", it.toString())
+            messagesAdapter.submitList(it)
+            messagesAdapter.notifyDataSetChanged()
+        })
 
         binding.createMessage.setOnClickListener {
             onCreateMessageButtonClicked()
@@ -108,9 +129,14 @@ class MessagesFragment : Fragment() {
 
 
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onMessageItemClickListener(messageInfo: LatestMessage) {
+        Toast.makeText(requireContext(), messageInfo.username, Toast.LENGTH_SHORT).show()
     }
 
 }
