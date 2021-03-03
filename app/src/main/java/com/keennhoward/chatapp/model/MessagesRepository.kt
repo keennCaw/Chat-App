@@ -74,7 +74,8 @@ class MessagesRepository{
             chatMessage.toId,
             chatMessage.timeStamp,
             user.username,
-            user.profileImageUrl
+            user.profileImageUrl,
+            chatMessage.read
         )
     }
 

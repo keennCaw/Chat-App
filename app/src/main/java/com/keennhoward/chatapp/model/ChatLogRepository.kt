@@ -45,7 +45,8 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
             text,
             fromId,
             toId,
-            System.currentTimeMillis() / 1000
+            System.currentTimeMillis() / 1000,
+            false
         )
 
         fromReference.setValue(chatMessage)
@@ -74,11 +75,19 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
     private fun listenForMessages() {
 
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
+        val latestRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
+        latestRef.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
 
-
+            override fun onDataChange(snapshot: DataSnapshot) {
+                latestRef.child("read").setValue(true)
+            }
+        })
 
         ref.addChildEventListener(object:ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                ref.child(snapshot.key!!).child("read").setValue(true)
                 chatLogList.add(snapshot.getValue(ChatMessage::class.java)!!)
                 chatLog.postValue(chatLogList)
                 Log.d(" Chat Log ", chatLogList.toString())

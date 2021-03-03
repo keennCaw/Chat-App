@@ -1,14 +1,17 @@
 package com.keennhoward
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.keennhoward.chatapp.ChatMessage
 import com.keennhoward.chatapp.LatestMessage
+import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.LatestMessagesItemBinding
 
 class MessagesAdapter(
@@ -40,6 +43,10 @@ class MessagesViewHolder(
     private val listener: MessageItemClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(messageInfo: LatestMessage) {
+        if(!messageInfo.read){
+            binding.latestMessage.typeface = Typeface.DEFAULT_BOLD
+            binding.latestMessage.setTextColor(ContextCompat.getColor(context, R.color.black))
+        }
         binding.latestMessage.text = messageInfo.text
         binding.latestMessageUsername.text = messageInfo.username
         Glide.with(context)
