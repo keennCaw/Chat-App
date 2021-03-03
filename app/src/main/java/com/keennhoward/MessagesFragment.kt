@@ -60,16 +60,9 @@ class MessagesFragment : Fragment(), MessageItemClickListener {
 
         messagesViewModel = ViewModelProvider(requireActivity(),factory).get(MessagesViewModel::class.java)
 
-        messagesViewModel.getMessageUserInfo()
-
         messagesViewModel.getLatestMessages().observe(requireActivity(), Observer {
-            messagesViewModel.getMessageUserInfo()
-        })
-
-        messagesViewModel.getMessagesInfo().observe(requireActivity(), Observer {
-            Log.d("Submitted List:", it.toString())
-            messagesAdapter.submitList(it)
-            messagesAdapter.notifyDataSetChanged()
+            messagesAdapter.submitList(ArrayList<LatestMessage>(it))
+            Log.d("LatestMessageFragment", it.toString())
         })
 
         binding.createMessage.setOnClickListener {

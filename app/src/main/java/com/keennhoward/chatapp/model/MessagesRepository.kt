@@ -8,93 +8,75 @@ import com.keennhoward.chatapp.ChatMessage
 import com.keennhoward.chatapp.LatestMessage
 import com.keennhoward.chatapp.User
 
-class MessagesRepository {
+class MessagesRepository{
 
-    private var latestMessages = MutableLiveData<ArrayList<ChatMessage>>()
-    private var messagesList = ArrayList<ChatMessage>()
-
-    private var messageInfo = MutableLiveData<ArrayList<LatestMessage>>()
-
-    private var messageInfoList = ArrayList<LatestMessage>()
-
-    fun getLatestMessaged(): MutableLiveData<ArrayList<ChatMessage>> {
-        return latestMessages
-    }
-
-    fun getMessagesInfo(): MutableLiveData<ArrayList<LatestMessage>> {
-        return messageInfo
-    }
+    private val messageInfoList = ArrayList<LatestMessage>()
+    private val latestMessageLiveData = MutableLiveData<ArrayList<LatestMessage>>()
 
     init {
-        listenForLatestMessages()
+        listenForMessage()
     }
 
-    fun getMessageUserInfo() {
-        messageInfoList.clear()
-        messagesList.forEach {
-            val ref = FirebaseDatabase.getInstance().getReference("/users/${it.toId}")
-            ref.addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val user = snapshot.getValue(User::class.java) ?: return
-
-                    messageInfoList.add(
-                        LatestMessage(
-                            it.id,
-                            it.text,
-                            it.fromId,
-                            it.toId,
-                            it.timeStamp,
-                            user.username,
-                            user.profileImageUrl
-                        )
-                    )
-                    messageInfo.postValue(messageInfoList)
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                }
-            })
-        }
+    fun getLatestMessages():MutableLiveData<ArrayList<LatestMessage>>{
+        return latestMessageLiveData
     }
 
-
-    private fun listenForLatestMessages() {
+    private fun listenForMessage() {
         val fromId = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
-
-        ref.addChildEventListener(object : ChildEventListener {
-
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
-                messagesList.add(chatMessage)
-                latestMessages.postValue(messagesList)
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val updatedMessage = snapshot.getValue(ChatMessage::class.java) ?: return
-
-                messagesList.forEachIndexed { index, chatMessage ->
-                    if (chatMessage.toId == updatedMessage.toId) {
-                        messagesList[index] = updatedMessage
-                    }
-                }
-                latestMessages.postValue(messagesList)
-                Log.d("Updated MessageList", messagesList.toString())
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
-            }
-
+        ref.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
-
             }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                messageInfoList.clear()
+                for (postSnapshot in snapshot.children) {
+                    //val toId = postSnapshot.getValue(ChatMessage::class.java)!!.toId
+                    val chatMessage = postSnapshot.getValue(ChatMessage::class.java)!!
+                    var user: User
+                    Log.d(
+                        "LatestMessagesList",
+                        postSnapshot.getValue(ChatMessage::class.java).toString()
+                    )
 
-            override fun onChildRemoved(snapshot: DataSnapshot) {
+                    var userRef:DatabaseReference
 
+                    if(fromId == chatMessage.toId){
+                        userRef =
+                            FirebaseDatabase.getInstance().getReference("/users/${chatMessage.fromId}")
+                    }else{
+                        userRef =
+                            FirebaseDatabase.getInstance().getReference("/users/${chatMessage.toId}")
+                    }
+
+                    userRef.addValueEventListener(object : ValueEventListener {
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            user = snapshot.getValue(User::class.java)!!
+                            Log.d("LatestMessageInfoUser", user.toString())
+                            messageInfoList.add(mapToLatestMessage(chatMessage, user))
+
+                            messageInfoList.sortByDescending { it.timeStamp }
+                            latestMessageLiveData.postValue(messageInfoList)
+                        }
+                    })
+                }
             }
-
         })
+
+    }
+
+    private fun mapToLatestMessage(chatMessage: ChatMessage, user: User): LatestMessage {
+        return LatestMessage(
+            chatMessage.id,
+            chatMessage.text,
+            chatMessage.fromId,
+            chatMessage.toId,
+            chatMessage.timeStamp,
+            user.username,
+            user.profileImageUrl
+        )
     }
 
 }
+

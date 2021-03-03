@@ -9,19 +9,9 @@ import com.keennhoward.chatapp.model.MessagesRepository
 class MessagesViewModel:ViewModel() {
 
     private val repository = MessagesRepository()
+    private val latestMessages = repository.getLatestMessages()
 
-    private val latestMessages = repository.getLatestMessaged()
-
-    private val messagesInfo = repository.getMessagesInfo()
-
-    fun getMessagesInfo():MutableLiveData<ArrayList<LatestMessage>>{
-        return messagesInfo
-    }
-
-    fun getLatestMessages():MutableLiveData<ArrayList<ChatMessage>>{
+    fun getLatestMessages():MutableLiveData<ArrayList<LatestMessage>>{
         return latestMessages
-    }
-    fun getMessageUserInfo(){
-        repository.getMessageUserInfo()
     }
 }
