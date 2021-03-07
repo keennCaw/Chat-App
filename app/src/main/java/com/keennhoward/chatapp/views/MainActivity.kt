@@ -1,8 +1,13 @@
 package com.keennhoward.chatapp.views
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
@@ -13,6 +18,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.User
 import com.keennhoward.chatapp.databinding.ActivityMainBinding
@@ -46,6 +52,9 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.getCurrentUserData().observe(this, Observer {
             currentUser = it
+            if(it != null){
+                updateDrawerHeader(it)
+            }
         })
 
         mainViewModel.getFirebaseUser().observe(this, Observer {
@@ -64,13 +73,10 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
         binding.navigationView.setupWithNavController(navController)
-
         setupActionBarWithNavController(navController, appBarConfiguration)
-
 
         val signOut = binding.navigationView.menu.findItem(R.id.sign_out)
         signOut.setOnMenuItemClickListener {
-
             Toast.makeText(this@MainActivity, "hello", Toast.LENGTH_SHORT).show()
             mainViewModel.signOut()
             true
@@ -84,4 +90,21 @@ class MainActivity : AppCompatActivity() {
         return  navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
 
     }
+
+    private fun updateDrawerHeader(user:User){
+        if(binding.navigationView.headerCount >0){
+            val headerLayout = binding.navigationView.getHeaderView(0)
+            val image = headerLayout.findViewById<ImageView>(R.id.header_image_view)
+            val email = headerLayout.findViewById<TextView>(R.id.header_email)
+            val username = headerLayout.findViewById<TextView>(R.id.header_username)
+
+            Glide.with(this)
+                .load(user.profileImageUrl)
+                .into(image)
+
+            username.text = user.username
+            email.text = user.email
+        }
+    }
+
 }
