@@ -1,5 +1,6 @@
-package com.keennhoward
+package com.keennhoward.chatapp.views.main.messages
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,19 +11,21 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.keennhoward.chatapp.LatestMessage
+import com.keennhoward.chatapp.data.LatestMessage
+import com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment
 import com.keennhoward.chatapp.R
+import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.FragmentMessagesBinding
 import com.keennhoward.chatapp.viewmodel.MessagesViewModel
 import com.keennhoward.chatapp.viewmodel.MessagesViewModelFactory
+import com.keennhoward.chatapp.views.chatlog.ChatLogActivity
 
-class MessagesFragment : Fragment(), MessageItemClickListener {
+class MessagesFragment : Fragment(),
+    MessageItemClickListener {
 
     private var _binding:FragmentMessagesBinding? = null
     private val binding get() = _binding!!
@@ -48,7 +51,11 @@ class MessagesFragment : Fragment(), MessageItemClickListener {
 
         val factory = MessagesViewModelFactory()
 
-        val messagesAdapter = MessagesAdapter(this, requireContext())
+        val messagesAdapter =
+            MessagesAdapter(
+                this,
+                requireContext()
+            )
 
 
 
@@ -129,8 +136,18 @@ class MessagesFragment : Fragment(), MessageItemClickListener {
     }
 
     override fun onMessageItemClickListener(messageInfo: LatestMessage) {
-        Toast.makeText(requireContext(), messageInfo.username, Toast.LENGTH_SHORT).show()
+        val user = User(
+            messageInfo.toId,
+            messageInfo.username,
+            messageInfo.profileImageUrl,
+            "",
+            null
+        )
+        val intent = Intent(requireActivity(), ChatLogActivity::class.java)
+        intent.putExtra(NewMessageFragment.USER_KEY, user)
+        startActivity(intent)
     }
+
 
 }
 

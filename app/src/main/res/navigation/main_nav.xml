@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/messagesFragment"
-        android:name="com.keennhoward.MessagesFragment"
+        android:name="com.keennhoward.chatapp.views.main.messages.MessagesFragment"
         android:label="Messages"
         tools:layout="@layout/fragment_messages" >
         <action
@@ -16,17 +16,17 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.keennhoward.ProfileFragment"
+        android:name="com.keennhoward.chatapp.views.main.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.keennhoward.SettingsFragment"
+        android:name="com.keennhoward.chatapp.views.main.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/newMessageFragment"
-        android:name="com.keennhoward.chatapp.NewMessageFragment"
+        android:name="com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment"
         android:label="Search User"
         tools:layout="@layout/fragment_new_message" >
         <action

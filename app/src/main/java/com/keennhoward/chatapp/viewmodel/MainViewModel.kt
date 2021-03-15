@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import com.keennhoward.chatapp.User
+import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.model.MainRepository
 
 class MainViewModel(application: Application):AndroidViewModel(application) {

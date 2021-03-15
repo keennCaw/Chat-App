@@ -1,8 +1,9 @@
-package com.keennhoward.chatapp
+package com.keennhoward.chatapp.views.chatlog
 
 import android.app.Application
 import android.view.View
 import com.bumptech.glide.Glide
+import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.ChatLogFromBinding
 
 import com.xwray.groupie.viewbinding.BindableItem

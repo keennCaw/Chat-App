@@ -1,4 +1,4 @@
-package com.keennhoward
+package com.keennhoward.chatapp.views.main.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

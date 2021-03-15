@@ -1,4 +1,4 @@
-package com.keennhoward.chatapp
+package com.keennhoward.chatapp.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -7,7 +7,9 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     val uid:String,
     val username:String,
-    val profileImageUrl:String
+    val profileImageUrl:String,
+    val email:String,
+    val token:String?
 ) : Parcelable {
-    constructor():this("","","")
+    constructor():this("","","","","")
 }

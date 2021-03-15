@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.keennhoward.chatapp.User
+import com.keennhoward.chatapp.data.User
 import java.util.*
 
 class RegisterRepository(val application: Application){
@@ -23,7 +23,7 @@ class RegisterRepository(val application: Application){
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener() { task ->
                 if(task.isSuccessful){
-                    uploadImageToFirebaseStorage(uri,username)
+                    uploadImageToFirebaseStorage(uri,username,email)
                     firebaseUser.postValue(firebaseAuth.currentUser)
                 }else{
                     Toast.makeText(application, "Registration Failed: ${task.exception!!.message}"
@@ -39,7 +39,7 @@ class RegisterRepository(val application: Application){
         return firebaseUser
     }
 
-    private fun uploadImageToFirebaseStorage(uri: Uri, username: String){
+    private fun uploadImageToFirebaseStorage(uri: Uri, username: String, email:String){
         val filename = UUID.randomUUID().toString()
         val firebaseStorageRef = FirebaseStorage.getInstance().getReference("/images/$filename")
 
@@ -51,21 +51,23 @@ class RegisterRepository(val application: Application){
 
                     Log.d("Register", "File Location: $it")
 
-                    saveUserToFirebaseDatabase(it.toString(), username)
+                    saveUserToFirebaseDatabase(it.toString(), username,email)
                 }
             }.addOnFailureListener {
                 Log.d("Register", "failed: ${it.message.toString()}")
             }
     }
 
-    private fun saveUserToFirebaseDatabase(profileImageUrl:String, username: String){
+    private fun saveUserToFirebaseDatabase(profileImageUrl:String, username: String,email: String){
         val uid = firebaseAuth.uid ?: ""
         val firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
         val user = User(
             uid,
             username,
-            profileImageUrl
+            profileImageUrl,
+            email,
+            ""
         )
 
         firebaseDatabaseReference.setValue(user)
@@ -76,4 +78,5 @@ class RegisterRepository(val application: Application){
                 Log.d("Register DB", "failed")
             }
     }
+
 }

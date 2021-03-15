@@ -1,17 +1,16 @@
-package com.keennhoward.chatapp.views
+package com.keennhoward.chatapp.views.chatlog
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.keennhoward.chatapp.ChatFromItem
-import com.keennhoward.chatapp.ChatToItem
-import com.keennhoward.chatapp.NewMessageFragment.Companion.USER_KEY
-import com.keennhoward.chatapp.User
+import com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment.Companion.USER_KEY
+import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.ActivityChatLogBinding
 import com.keennhoward.chatapp.viewmodel.ChatLogViewModel
 import com.keennhoward.chatapp.viewmodel.ChatLogViewModelFactory
+import com.keennhoward.chatapp.views.main.MainActivity
 import com.xwray.groupie.GroupieAdapter
 
 class ChatLogActivity : AppCompatActivity() {
@@ -62,7 +61,13 @@ class ChatLogActivity : AppCompatActivity() {
                             )
                         )
                     } else {
-                        adapter.add(ChatToItem(it.text, toUser.profileImageUrl, application))
+                        adapter.add(
+                            ChatToItem(
+                                it.text,
+                                toUser.profileImageUrl,
+                                application
+                            )
+                        )
                     }
                     chatCount++
                 }
@@ -77,7 +82,13 @@ class ChatLogActivity : AppCompatActivity() {
                         )
                     )
                 }else{
-                    adapter.add(ChatToItem(it[chatCount].text,toUser.profileImageUrl,application))
+                    adapter.add(
+                        ChatToItem(
+                            it[chatCount].text,
+                            toUser.profileImageUrl,
+                            application
+                        )
+                    )
                 }
                 chatCount++
             }

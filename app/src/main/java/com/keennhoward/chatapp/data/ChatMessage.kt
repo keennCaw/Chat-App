@@ -1,4 +1,4 @@
-package com.keennhoward.chatapp
+package com.keennhoward.chatapp.data
 
 data class ChatMessage(
     val id:String,

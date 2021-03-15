@@ -1,11 +1,8 @@
-package com.keennhoward.chatapp.views
+package com.keennhoward.chatapp.views.main
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -20,7 +17,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.keennhoward.chatapp.R
-import com.keennhoward.chatapp.User
+import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.ActivityMainBinding
 import com.keennhoward.chatapp.viewmodel.MainViewModel
 import com.keennhoward.chatapp.viewmodel.MainViewModelFactory
@@ -91,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun updateDrawerHeader(user:User){
+    private fun updateDrawerHeader(user: User){
         if(binding.navigationView.headerCount >0){
             val headerLayout = binding.navigationView.getHeaderView(0)
             val image = headerLayout.findViewById<ImageView>(R.id.header_image_view)

@@ -13,6 +13,7 @@ import com.keennhoward.chatapp.dialog.LoadingDialog
 import com.keennhoward.chatapp.databinding.ActivityRegisterBinding
 import com.keennhoward.chatapp.viewmodel.RegisterViewModel
 import com.keennhoward.chatapp.viewmodel.RegisterViewModelFactory
+import com.keennhoward.chatapp.views.main.MainActivity
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -40,7 +41,6 @@ class RegisterActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
-                finish()
             }
         })
 
@@ -53,6 +53,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.registerUsernameEt.text.toString(),
                 selectedPhotoUri!!
             )
+
 
             //loading dialog
 

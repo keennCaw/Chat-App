@@ -3,11 +3,13 @@ package com.keennhoward.chatapp.views
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.keennhoward.chatapp.databinding.ActivityLoginBinding
 import com.keennhoward.chatapp.viewmodel.LoginViewModel
 import com.keennhoward.chatapp.viewmodel.LoginViewModelFactory
+import com.keennhoward.chatapp.views.main.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -19,6 +21,12 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         val view = binding.root
+
+        //supportActionBar!!.hide()
+        //window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        //.LayoutParams.FLAG_FULLSCREEN)
+
+        hideSystemUI()
 
         val factory = LoginViewModelFactory(application)
 
@@ -80,5 +88,16 @@ class LoginActivity : AppCompatActivity() {
             result = false
         }
         return result
+    }
+
+    private fun hideSystemUI() {
+
+        window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                        or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        // Hide the nav bar and status bar
+                        or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // Hide nav bar
+                        or View.SYSTEM_UI_FLAG_FULLSCREEN // Hide status bar
+                )
     }
 }

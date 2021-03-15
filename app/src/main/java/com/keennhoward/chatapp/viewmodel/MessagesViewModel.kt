@@ -2,8 +2,7 @@ package com.keennhoward.chatapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.keennhoward.chatapp.ChatMessage
-import com.keennhoward.chatapp.LatestMessage
+import com.keennhoward.chatapp.data.LatestMessage
 import com.keennhoward.chatapp.model.MessagesRepository
 
 class MessagesViewModel:ViewModel() {

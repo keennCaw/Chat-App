@@ -1,4 +1,4 @@
-package com.keennhoward.chatapp
+package com.keennhoward.chatapp.views.main.newmessage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,26 +7,33 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.NewMessageUserItemBinding
 
 class NewMessageAdapter(private val context: Context, private val listener: UserClickListener):
-ListAdapter<User, UserViewHolder>(UserDiffUtil()){
+ListAdapter<User, UserViewHolder>(
+    UserDiffUtil()
+){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = NewMessageUserItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return UserViewHolder(binding,listener,context)
+        return UserViewHolder(
+            binding,
+            listener,
+            context
+        )
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    fun getUserAt(position: Int):User{
+    fun getUserAt(position: Int): User {
         return getItem(position)
     }
 }
 
 interface UserClickListener{
-    fun onUserItemClickListener(user:User)
+    fun onUserItemClickListener(user: User)
 }
 
 class UserViewHolder(
@@ -35,7 +42,7 @@ class UserViewHolder(
     private val context: Context
 ):RecyclerView.ViewHolder(binding.root){
 
-    fun bind(user:User){
+    fun bind(user: User){
 
         Glide.with(context)
             .load(user.profileImageUrl)

@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.keennhoward.chatapp.ChatMessage
-import com.keennhoward.chatapp.LatestMessage
-import com.keennhoward.chatapp.User
+import com.keennhoward.chatapp.data.ChatMessage
+import com.keennhoward.chatapp.data.LatestMessage
+import com.keennhoward.chatapp.data.User
 
 class MessagesRepository{
 

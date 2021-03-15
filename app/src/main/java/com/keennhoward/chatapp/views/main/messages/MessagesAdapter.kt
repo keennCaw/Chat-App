@@ -1,4 +1,4 @@
-package com.keennhoward
+package com.keennhoward.chatapp.views.main.messages
 
 import android.content.Context
 import android.graphics.Typeface
@@ -9,8 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.keennhoward.chatapp.ChatMessage
-import com.keennhoward.chatapp.LatestMessage
+import com.keennhoward.chatapp.data.LatestMessage
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.LatestMessagesItemBinding
 
@@ -18,13 +17,19 @@ class MessagesAdapter(
     private val listener: MessageItemClickListener,
     private val context: Context
 ) :
-    ListAdapter<LatestMessage, MessagesViewHolder>(CartDiffUtil()) {
+    ListAdapter<LatestMessage, MessagesViewHolder>(
+        CartDiffUtil()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessagesViewHolder {
         val latestMessageBinding =
             LatestMessagesItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return MessagesViewHolder(latestMessageBinding, context, listener)
+        return MessagesViewHolder(
+            latestMessageBinding,
+            context,
+            listener
+        )
     }
 
     override fun onBindViewHolder(holder: MessagesViewHolder, position: Int) {

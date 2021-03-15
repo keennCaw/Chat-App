@@ -1,4 +1,4 @@
-package com.keennhoward.chatapp
+package com.keennhoward.chatapp.views.main.newmessage
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,17 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.FragmentNewMessageBinding
 import com.keennhoward.chatapp.viewmodel.NewMessageViewModel
 import com.keennhoward.chatapp.viewmodel.NewMessageViewModelFactory
-import com.keennhoward.chatapp.views.ChatLogActivity
+import com.keennhoward.chatapp.views.chatlog.ChatLogActivity
 
-class NewMessageFragment : Fragment(), UserClickListener {
+class NewMessageFragment : Fragment(),
+    UserClickListener {
 
     private lateinit var newMessageViewModel: NewMessageViewModel
     private lateinit var newMessageAdapter: NewMessageAdapter
@@ -42,7 +43,11 @@ class NewMessageFragment : Fragment(), UserClickListener {
         val factory = NewMessageViewModelFactory()
         newMessageViewModel = ViewModelProvider(this, factory).get(NewMessageViewModel::class.java)
 
-        newMessageAdapter = NewMessageAdapter(requireContext(), this)
+        newMessageAdapter =
+            NewMessageAdapter(
+                requireContext(),
+                this
+            )
 
         binding.userListRecyclerview.apply {
             layoutManager = LinearLayoutManager(requireContext())

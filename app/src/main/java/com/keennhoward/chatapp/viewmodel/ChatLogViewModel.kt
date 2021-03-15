@@ -2,8 +2,7 @@ package com.keennhoward.chatapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.keennhoward.chatapp.ChatMessage
-import com.keennhoward.chatapp.User
+import com.keennhoward.chatapp.data.ChatMessage
 import com.keennhoward.chatapp.model.ChatLogRepository
 
 class ChatLogViewModel(toId:String, fromId:String):ViewModel() {
