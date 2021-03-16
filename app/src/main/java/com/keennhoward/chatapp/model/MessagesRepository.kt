@@ -21,6 +21,8 @@ class MessagesRepository{
         return latestMessageLiveData
     }
 
+
+
     private fun listenForMessage() {
         val fromId = FirebaseAuth.getInstance().uid
         val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
@@ -75,7 +77,8 @@ class MessagesRepository{
             chatMessage.timeStamp,
             user.username,
             user.profileImageUrl,
-            chatMessage.read
+            chatMessage.read,
+            user.token
         )
     }
 

@@ -141,8 +141,9 @@ class MessagesFragment : Fragment(),
             messageInfo.username,
             messageInfo.profileImageUrl,
             "",
-            null
+            messageInfo.token
         )
+
         val intent = Intent(requireActivity(), ChatLogActivity::class.java)
         intent.putExtra(NewMessageFragment.USER_KEY, user)
         startActivity(intent)

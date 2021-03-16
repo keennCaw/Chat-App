@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.keennhoward.chatapp.data.NotificationData
+import com.keennhoward.chatapp.data.PushNotification
 import com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment.Companion.USER_KEY
 import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.ActivityChatLogBinding
@@ -15,11 +17,9 @@ import com.xwray.groupie.GroupieAdapter
 
 class ChatLogActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityChatLogBinding
 
     private lateinit var chatLogViewModel: ChatLogViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +31,20 @@ class ChatLogActivity : AppCompatActivity() {
 
         val factory = ChatLogViewModelFactory(MainActivity.currentUser!!.uid, toUser.uid)
 
+        Log.d("CHATLOGMAIN", MainActivity.currentUser!!.username)
         chatLogViewModel = ViewModelProvider(this, factory).get(ChatLogViewModel::class.java)
 
-
         binding.chatLogSendButton.setOnClickListener {
-            chatLogViewModel.sendMessage(binding.chatLogEditText.text.toString())
+            val message = binding.chatLogEditText.text.toString()
+            if(message.isNotEmpty()){
+                PushNotification(
+                    NotificationData(MainActivity.currentUser!!.username, message),
+                    toUser.token
+                ).also {
+                    chatLogViewModel.sendNotification(it)
+                }
+            }
+            chatLogViewModel.sendMessage(message)
         }
 
         Log.d("Current User", MainActivity.currentUser.toString())

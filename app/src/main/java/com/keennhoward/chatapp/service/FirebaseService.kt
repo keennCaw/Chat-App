@@ -2,6 +2,7 @@ package com.keennhoward.chatapp.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.NotificationManager.IMPORTANCE_HIGH
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_ONE_SHOT
 import android.content.Context
@@ -27,8 +28,6 @@ class FirebaseService : FirebaseMessagingService(){
         val intent = Intent(this, MainActivity::class.java)
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        //Log.d("FIREBASE_MESSAGE", message.notification!!.title.toString())
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             createNotificationChannel(notificationManager)
         }
@@ -38,8 +37,8 @@ class FirebaseService : FirebaseMessagingService(){
 
         if(message!=null){
             val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle(message.notification!!.title.toString())
-                .setContentText(message.notification!!.body.toString())
+                .setContentTitle(message.data["title"])
+                .setContentText(message.data["message"])
                 .setSmallIcon(R.drawable.ic_chat_24)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
@@ -52,7 +51,7 @@ class FirebaseService : FirebaseMessagingService(){
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager){
         val channelName = "channelName"
-        val channel = NotificationChannel(CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_HIGH).apply {
+        val channel = NotificationChannel(CHANNEL_ID, channelName, IMPORTANCE_HIGH).apply {
             description = "My Channel Description"
             enableLights(true)
             lightColor = Color.GREEN

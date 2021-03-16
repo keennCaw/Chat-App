@@ -5,10 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.keennhoward.chatapp.data.ChatMessage
+import com.keennhoward.chatapp.data.PushNotification
 import com.keennhoward.chatapp.data.User
+import com.keennhoward.chatapp.service.api.RetrofitInstance
 
 class ChatLogRepository(private val toId:String, private val fromId:String) {
 
+    val TAG = "ChatlogRepository"
 
     private var firebaseAuth = FirebaseAuth.getInstance()
 
@@ -18,11 +21,18 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
 
     private var currentUserData:MutableLiveData<User> = MutableLiveData()
 
+    private val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${firebaseAuth.uid}")
+
     init {
         listenForMessages()
+        fetchCurrentUser()
     }
 
-    fun getChatLog():MutableLiveData<ArrayList<ChatMessage>>{
+    fun getCurrentUserData(): MutableLiveData<User> {
+        return currentUserData
+    }
+
+        fun getChatLog():MutableLiveData<ArrayList<ChatMessage>>{
         return chatLog
     }
 
@@ -90,7 +100,7 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
                 ref.child(snapshot.key!!).child("read").setValue(true)
                 chatLogList.add(snapshot.getValue(ChatMessage::class.java)!!)
                 chatLog.postValue(chatLogList)
-                Log.d(" Chat Log ", chatLogList.toString())
+                Log.d(TAG, chatLogList.toString())
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -108,4 +118,30 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
         })
     }
 
+
+    suspend fun sendNotification(notification: PushNotification){
+        try{
+            val response = RetrofitInstance.api.postNotification(notification)
+            if(response.isSuccessful){
+                Log.d(TAG, "message sent")
+            }else{
+                Log.d(TAG, response.errorBody().toString())
+            }
+        }catch (e:Exception){
+            Log.d(TAG, e.toString());
+        }
+    }
+
+    private fun fetchCurrentUser(){
+        currentUserRef.addListenerForSingleValueEvent(object:ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                currentUserData.postValue(snapshot.getValue(User::class.java))
+            }
+
+        })
+    }
 }
