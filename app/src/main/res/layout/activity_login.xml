@@ -24,9 +24,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_chat_24"
-                android:backgroundTint="@color/design_default_color_primary"
-
-                />
+                android:backgroundTint="@color/design_default_color_primary"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -52,7 +50,7 @@
                     android:backgroundTintMode="screen"
                     android:importantForAutofill="no"
                     android:inputType="textEmailAddress"
-                    android:maxLength="64" />
+                    android:maxLength="64"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
