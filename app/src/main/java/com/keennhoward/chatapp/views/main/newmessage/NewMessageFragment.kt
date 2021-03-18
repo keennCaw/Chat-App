@@ -2,14 +2,14 @@ package com.keennhoward.chatapp.views.main.newmessage
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.FragmentNewMessageBinding
 import com.keennhoward.chatapp.viewmodel.NewMessageViewModel
@@ -55,12 +55,39 @@ class NewMessageFragment : Fragment(),
         }
 
         newMessageViewModel.getUserList().observe(requireActivity(), Observer {
-            newMessageAdapter.submitList(it)
+            newMessageAdapter.modifyList(it)
         })
 
         newMessageViewModel.fetchUsers()
+
+
+        setHasOptionsMenu(true)
+
         return view
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.new_message_menu,menu)
+
+        val searchItem = menu.findItem(R.id.action_search)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                (binding.userListRecyclerview.adapter as NewMessageAdapter).filter(newText)
+                return true
+            }
+
+        })
+
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
 
     override fun onUserItemClickListener(user: User) {
         Toast.makeText(requireContext(), "${user.username}", Toast.LENGTH_SHORT).show()

@@ -51,6 +51,8 @@ class MessagesViewHolder(
         if(!messageInfo.read){
             binding.latestMessage.typeface = Typeface.DEFAULT_BOLD
             binding.latestMessage.setTextColor(ContextCompat.getColor(context, R.color.black))
+            binding.latestMessageUsername.typeface = Typeface.DEFAULT_BOLD
+            binding.latestMessageUsername.setTextColor(ContextCompat.getColor(context, R.color.black))
         }
         binding.latestMessage.text = messageInfo.text
         binding.latestMessageUsername.text = messageInfo.username

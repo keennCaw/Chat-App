@@ -9,11 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.NewMessageUserItemBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NewMessageAdapter(private val context: Context, private val listener: UserClickListener):
 ListAdapter<User, UserViewHolder>(
     UserDiffUtil()
 ){
+
+    private var unfilteredList = ArrayList<User>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = NewMessageUserItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return UserViewHolder(
@@ -23,6 +28,7 @@ ListAdapter<User, UserViewHolder>(
         )
     }
 
+
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
@@ -30,6 +36,27 @@ ListAdapter<User, UserViewHolder>(
     fun getUserAt(position: Int): User {
         return getItem(position)
     }
+
+    fun modifyList(list : ArrayList<User>) {
+        unfilteredList = list
+        submitList(list)
+    }
+
+    fun filter(query: CharSequence?) {
+        val list = mutableListOf<User>()
+
+        // perform the data filtering
+        if(!query.isNullOrEmpty()) {
+            list.addAll(unfilteredList.filter {
+                it.username.toLowerCase(Locale.getDefault()).contains(query.toString().toLowerCase(Locale.getDefault())) ||
+                        it.email.toLowerCase(Locale.getDefault()).contains(query.toString().toLowerCase(Locale.getDefault())) })
+        } else {
+            list.addAll(unfilteredList)
+        }
+
+        submitList(list)
+    }
+
 }
 
 interface UserClickListener{
@@ -49,6 +76,7 @@ class UserViewHolder(
             .into(binding.userProfileImage)
 
         binding.userUsername.text = user.username
+        binding.userEmail.text = user.email
 
         binding.root.setOnClickListener {
             listener.onUserItemClickListener(user)
