@@ -9,7 +9,8 @@ data class LatestMessage(
     val username:String,
     val profileImageUrl:String,
     val read:Boolean,
-    val token:String
+    val token:String,
+    val email:String
 ) {
-    constructor():this("","","","",-1,"","", false, "")
+    constructor():this("","","","",-1,"","", false, "","")
 }

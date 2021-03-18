@@ -78,7 +78,8 @@ class MessagesRepository{
             user.username,
             user.profileImageUrl,
             chatMessage.read,
-            user.token
+            user.token,
+            user.email
         )
     }
 

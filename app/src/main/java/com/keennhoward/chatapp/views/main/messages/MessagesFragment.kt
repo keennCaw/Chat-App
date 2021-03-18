@@ -140,7 +140,7 @@ class MessagesFragment : Fragment(),
             messageInfo.toId,
             messageInfo.username,
             messageInfo.profileImageUrl,
-            "",
+            messageInfo.email,
             messageInfo.token
         )
 

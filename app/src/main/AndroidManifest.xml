@@ -24,7 +24,8 @@
 
         <activity
             android:name=".views.chatlog.ChatLogActivity"
-            android:parentActivityName=".views.main.MainActivity" />
+            android:parentActivityName=".views.main.MainActivity"
+            android:theme="@style/Theme.ChatApp.NoActionBar"/>
 
         <activity android:name=".views.main.MainActivity">
             <intent-filter>

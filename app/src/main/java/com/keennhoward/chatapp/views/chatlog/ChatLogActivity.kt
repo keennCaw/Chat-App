@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.keennhoward.chatapp.data.NotificationData
 import com.keennhoward.chatapp.data.PushNotification
 import com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment.Companion.USER_KEY
@@ -49,7 +50,17 @@ class ChatLogActivity : AppCompatActivity() {
 
         Log.d("Current User", MainActivity.currentUser.toString())
 
-        supportActionBar!!.title = toUser.username
+        //
+        //supportActionBar?.hide()
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = toUser.username
+
+        Glide.with(this)
+            .load(toUser.profileImageUrl)
+            .into(binding.chatLogToolbarImage)
+
+        binding.chatLogToolbarEmail.text = toUser.email
 
         setContentView(view)
 

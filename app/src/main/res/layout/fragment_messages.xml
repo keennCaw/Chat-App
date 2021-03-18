@@ -27,7 +27,7 @@
             android:backgroundTint="@color/design_default_color_primary"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/ic_person_add_24"
+            android:src="@drawable/ic_compose_64"
             app:tint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
