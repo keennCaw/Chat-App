@@ -141,7 +141,8 @@ class MessagesFragment : Fragment(),
             messageInfo.username,
             messageInfo.profileImageUrl,
             messageInfo.email,
-            messageInfo.token
+            messageInfo.token,
+            messageInfo.status
         )
 
         val intent = Intent(requireActivity(), ChatLogActivity::class.java)

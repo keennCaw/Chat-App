@@ -10,8 +10,9 @@ import com.keennhoward.chatapp.data.User
 
 class MessagesRepository{
 
-    private val messageInfoList = ArrayList<LatestMessage>()
-    private val latestMessageLiveData = MutableLiveData<ArrayList<LatestMessage>>()
+    private var messageInfoList = ArrayList<LatestMessage>()
+    private var messageInfoListOld = ArrayList<LatestMessage>()
+    private var latestMessageLiveData = MutableLiveData<ArrayList<LatestMessage>>()
 
     init {
         listenForMessage()
@@ -35,6 +36,7 @@ class MessagesRepository{
                     //val toId = postSnapshot.getValue(ChatMessage::class.java)!!.toId
                     val chatMessage = postSnapshot.getValue(ChatMessage::class.java)!!
                     var user: User
+                    var isNew = true
                     Log.d(
                         "LatestMessagesList",
                         postSnapshot.getValue(ChatMessage::class.java).toString()
@@ -56,10 +58,15 @@ class MessagesRepository{
                         override fun onDataChange(snapshot: DataSnapshot) {
                             user = snapshot.getValue(User::class.java)!!
                             Log.d("LatestMessageInfoUser", user.toString())
-                            messageInfoList.add(mapToLatestMessage(chatMessage, user))
 
+                            if(isNew){
+                                messageInfoList.add(mapToLatestMessage(chatMessage, user))
+                            }else{
+                                //add functionality to display if online
+                            }
                             messageInfoList.sortByDescending { it.timeStamp }
                             latestMessageLiveData.postValue(messageInfoList)
+                            isNew = false
                         }
                     })
                 }
@@ -79,7 +86,8 @@ class MessagesRepository{
             user.profileImageUrl,
             chatMessage.read,
             user.token,
-            user.email
+            user.email,
+            user.status
         )
     }
 

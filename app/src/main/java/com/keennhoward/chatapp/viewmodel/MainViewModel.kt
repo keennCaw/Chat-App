@@ -19,6 +19,18 @@ class MainViewModel(application: Application):AndroidViewModel(application) {
         repository.signOut()
     }
 
+    fun setStatusOnline(){
+        repository.setUserStatusOnline()
+    }
+
+    fun setStatusOffline(){
+        repository.setStatusOffline()
+    }
+
+    fun setStatusAway(){
+        repository.setStatusAway()
+    }
+
     fun getFirebaseUser() : MutableLiveData<FirebaseUser> {
         return firebaseUser
     }

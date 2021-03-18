@@ -64,6 +64,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        mainViewModel.setStatusOnline()
+
 
         setContentView(drawerLayout)
         navController = findNavController(R.id.fragment)
@@ -104,4 +106,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        mainViewModel.setStatusAway()
+    }
+
+    override fun onStop() {
+        //mainViewModel.setStatusOffline()
+        super.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.setStatusOnline()
+    }
+
+    override fun onDestroy() {
+        mainViewModel.setStatusOffline()
+        super.onDestroy()
+    }
 }

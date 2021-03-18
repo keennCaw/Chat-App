@@ -12,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.keennhoward.chatapp.data.User
-import com.keennhoward.chatapp.data.UserStatus
 
 class MainRepository(val application: Application) {
 
@@ -24,15 +23,13 @@ class MainRepository(val application: Application) {
 
     private val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${firebaseAuth.uid}")
 
-    private val userStatusRef = FirebaseDatabase.getInstance().getReference("/user-status/${firebaseAuth.uid}")
+    //private val userStatusRef = FirebaseDatabase.getInstance().getReference("/user-status/${firebaseAuth.uid}")
 
-    private val userStatus = MutableLiveData<UserStatus>()
 
     init{
         firebaseUser.postValue(firebaseAuth.currentUser)
         fetchCurrentUser()
         getToken()
-        setUserStatusOnline()
     }
 
     fun getCurrentUserData(): MutableLiveData<User>{
@@ -49,6 +46,20 @@ class MainRepository(val application: Application) {
         return firebaseUser
     }
 
+
+    //User Status
+    fun setStatusAway(){
+        currentUserRef.child("status").setValue("away")
+    }
+
+    fun setStatusOffline(){
+        currentUserRef.child("status").setValue("offline")
+    }
+
+    fun setUserStatusOnline(){
+        currentUserRef.child("status").setValue("online")
+    }
+
     private fun fetchCurrentUser(){
         currentUserRef.addListenerForSingleValueEvent(object:ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -62,10 +73,8 @@ class MainRepository(val application: Application) {
         })
     }
 
-    private fun setUserStatusOnline(){
-        userStatusRef.child("status").setValue("online")
-    }
 
+    //get User Token
     private fun getToken(){
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {

@@ -1,6 +1,7 @@
 package com.keennhoward.chatapp.views.main.messages
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -48,6 +49,8 @@ class MessagesViewHolder(
     private val listener: MessageItemClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(messageInfo: LatestMessage) {
+
+
         if(!messageInfo.read){
             binding.latestMessage.typeface = Typeface.DEFAULT_BOLD
             binding.latestMessage.setTextColor(ContextCompat.getColor(context, R.color.black))

@@ -67,7 +67,8 @@ class RegisterRepository(val application: Application){
             username,
             profileImageUrl,
             email,
-            ""
+            "",
+            "offline"
         )
 
         firebaseDatabaseReference.setValue(user)
