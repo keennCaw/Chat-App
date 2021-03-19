@@ -3,6 +3,7 @@ package com.keennhoward.chatapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.keennhoward.chatapp.data.LatestMessage
+import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.model.MessagesRepository
 
 class MessagesViewModel:ViewModel() {
@@ -12,5 +13,9 @@ class MessagesViewModel:ViewModel() {
 
     fun getLatestMessages():MutableLiveData<ArrayList<LatestMessage>>{
         return latestMessages
+    }
+
+    fun getRandomUser(): User?{
+        return repository.getRandomUser()
     }
 }

@@ -7,22 +7,48 @@ import com.google.firebase.database.*
 import com.keennhoward.chatapp.data.ChatMessage
 import com.keennhoward.chatapp.data.LatestMessage
 import com.keennhoward.chatapp.data.User
+import kotlin.random.Random
 
 class MessagesRepository{
 
     private var messageInfoList = ArrayList<LatestMessage>()
-    private var messageInfoListOld = ArrayList<LatestMessage>()
     private var latestMessageLiveData = MutableLiveData<ArrayList<LatestMessage>>()
+    private var usersList = ArrayList<User>()
+
+    private val usersRef = FirebaseDatabase.getInstance().getReference("/users/")
 
     init {
         listenForMessage()
+        listenForUsersList()
     }
 
     fun getLatestMessages():MutableLiveData<ArrayList<LatestMessage>>{
         return latestMessageLiveData
     }
 
+    fun getRandomUser():User?{
+        if(usersList.size!=0){
+            return usersList[Random.nextInt(usersList.size)]
+        }else{
+            return null
+        }
+    }
 
+    private fun listenForUsersList(){
+
+        usersRef.addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+            override fun onDataChange(snapshot: DataSnapshot) {
+                usersList.clear()
+                for(postSnapshot in snapshot.children){
+                    val user = postSnapshot.getValue(User::class.java)
+                    usersList.add(user!!)
+                }
+            }
+
+        })
+    }
 
     private fun listenForMessage() {
         val fromId = FirebaseAuth.getInstance().uid

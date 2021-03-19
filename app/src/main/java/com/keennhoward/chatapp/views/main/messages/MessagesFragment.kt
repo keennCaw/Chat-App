@@ -81,8 +81,14 @@ class MessagesFragment : Fragment(),
             onCreateMessageButtonClicked()
         }
 
-        binding.messageLocationUsers.setOnClickListener {
-            Toast.makeText(requireActivity(), "search a user by location", Toast.LENGTH_SHORT).show()
+        binding.messageRandomUser.setOnClickListener {
+            val user = messagesViewModel.getRandomUser()
+            if(user!=null){
+                //Toast.makeText(requireActivity(), user.toString(), Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireActivity(), ChatLogActivity::class.java)
+                intent.putExtra(NewMessageFragment.USER_KEY, user)
+                startActivity(intent)
+            }
         }
 
 
@@ -98,32 +104,38 @@ class MessagesFragment : Fragment(),
 
     private fun setVisibility(clicked: Boolean) {
         if(!clicked){
-            binding.messageLocationUsers.visibility = View.VISIBLE
+            binding.messageRandomUser.visibility = View.VISIBLE
             binding.messageSearchUsers.visibility = View.VISIBLE
+            binding.messageGlobal.visibility = View.VISIBLE
         }else{
-            binding.messageLocationUsers.visibility = View.INVISIBLE
+            binding.messageRandomUser.visibility = View.INVISIBLE
             binding.messageSearchUsers.visibility = View.INVISIBLE
+            binding.messageGlobal.visibility = View.INVISIBLE
         }
     }
 
     private fun setAnimation(clicked: Boolean) {
         if(!clicked){
             binding.messageSearchUsers.startAnimation(fromBottom)
-            binding.messageLocationUsers.startAnimation(fromBottom)
+            binding.messageRandomUser.startAnimation(fromBottom)
+            binding.messageGlobal.startAnimation(fromBottom)
             binding.createMessage.startAnimation(rotateOpen)
         }else{
             binding.messageSearchUsers.startAnimation(toBottom)
-            binding.messageLocationUsers.startAnimation(toBottom)
+            binding.messageRandomUser.startAnimation(toBottom)
+            binding.messageGlobal.startAnimation(toBottom)
             binding.createMessage.startAnimation(rotateClose)
         }
     }
     private fun setClickable(clicked: Boolean){
         if(!clicked){
             binding.messageSearchUsers.isClickable = true
-            binding.messageLocationUsers.isClickable = true
+            binding.messageRandomUser.isClickable = true
+            binding.messageGlobal.isClickable = true
         }else{
             binding.messageSearchUsers.isClickable = false
-            binding.messageLocationUsers.isClickable = false
+            binding.messageRandomUser.isClickable = false
+            binding.messageGlobal.isClickable = false
         }
     }
 
