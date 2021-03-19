@@ -158,4 +158,24 @@ class ChatLogActivity : AppCompatActivity() {
         })
 
     }
+
+    override fun onPause() {
+        super.onPause()
+        chatLogViewModel.setStatusAway()
+    }
+
+    override fun onStop() {
+        //mainViewModel.setStatusOffline()
+        super.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        chatLogViewModel.setStatusOnline()
+    }
+
+    override fun onDestroy() {
+        chatLogViewModel.setStatusOffline()
+        super.onDestroy()
+    }
 }

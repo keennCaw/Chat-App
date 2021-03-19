@@ -45,6 +45,19 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
         return chatLog
     }
 
+    //User Status
+    fun setStatusAway(){
+        currentUserRef.child("status").setValue("away")
+    }
+
+    fun setStatusOffline(){
+        currentUserRef.child("status").setValue("offline")
+    }
+
+    fun setUserStatusOnline(){
+        currentUserRef.child("status").setValue("online")
+    }
+
     fun sendMessage(text: String) {
 
         val fromReference =

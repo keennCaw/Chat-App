@@ -30,6 +30,21 @@ class ChatLogViewModel(toId:String, fromId:String):ViewModel() {
         return toUserStatus
     }
 
+    //User Status
+    fun setStatusOnline(){
+        repository.setUserStatusOnline()
+    }
+
+    fun setStatusOffline(){
+        repository.setStatusOffline()
+    }
+
+    fun setStatusAway(){
+        repository.setStatusAway()
+    }
+
+
+
 
     fun getChatLog(): MutableLiveData<ArrayList<ChatMessage>>{
         return repository.getChatLog()
