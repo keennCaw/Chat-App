@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.keennhoward.chatapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:allowBackup="true"
@@ -13,28 +12,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
+        <activity android:name=".views.globalchat.GlobalChatActivity"></activity>
 
-        <service android:name=".service.FirebaseService"
+        <service
+            android:name=".service.FirebaseService"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
 
         <activity
             android:name=".views.chatlog.ChatLogActivity"
             android:parentActivityName=".views.main.MainActivity"
-            android:theme="@style/Theme.ChatApp.NoActionBar"/>
-
+            android:theme="@style/Theme.ChatApp.NoActionBar" />
         <activity android:name=".views.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.LoginActivity"/>
-        <activity android:name=".views.RegisterActivity"/>
+        <activity android:name=".views.LoginActivity" />
+        <activity android:name=".views.RegisterActivity" />
     </application>
 
 </manifest>
