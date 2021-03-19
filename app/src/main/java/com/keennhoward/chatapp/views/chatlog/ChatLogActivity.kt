@@ -1,19 +1,19 @@
 package com.keennhoward.chatapp.views.chatlog
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.keennhoward.chatapp.data.NotificationData
 import com.keennhoward.chatapp.data.PushNotification
-import com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment.Companion.USER_KEY
 import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.ActivityChatLogBinding
 import com.keennhoward.chatapp.viewmodel.ChatLogViewModel
 import com.keennhoward.chatapp.viewmodel.ChatLogViewModelFactory
 import com.keennhoward.chatapp.views.main.MainActivity
+import com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment.Companion.USER_KEY
 import com.xwray.groupie.GroupieAdapter
 
 class ChatLogActivity : AppCompatActivity() {
@@ -37,16 +37,18 @@ class ChatLogActivity : AppCompatActivity() {
 
         binding.chatLogSendButton.setOnClickListener {
             val message = binding.chatLogEditText.text.toString()
-            if(message.isNotEmpty()){
+            if(message.trim().isNotEmpty()){
                 PushNotification(
                     NotificationData(MainActivity.currentUser!!.username, message),
                     toUser.token
                 ).also {
                     chatLogViewModel.sendNotification(it)
                 }
+                chatLogViewModel.sendMessage(message)
+                binding.chatLogEditText.text.clear()
             }
-            chatLogViewModel.sendMessage(message)
         }
+
 
         Log.d("Current User", MainActivity.currentUser.toString())
 
@@ -117,6 +119,19 @@ class ChatLogActivity : AppCompatActivity() {
 
         binding.chatLogRecyclerview.adapter = adapter
 
+        //move recyclerview position to bottom on keyboard open
+
+        binding.chatLogRecyclerview.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+
+            if(bottom < oldBottom){
+                binding.chatLogRecyclerview.postDelayed(Runnable {
+                    binding.chatLogRecyclerview.smoothScrollToPosition(
+                        bottom
+                    )
+                }, 100)
+            }
+
+        }
 
     }
 }
