@@ -1,11 +1,13 @@
 package com.keennhoward.chatapp.views.chatlog
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.data.NotificationData
 import com.keennhoward.chatapp.data.PushNotification
 import com.keennhoward.chatapp.data.User
@@ -132,6 +134,28 @@ class ChatLogActivity : AppCompatActivity() {
             }
 
         }
+
+        //To User Status
+        chatLogViewModel.getToUserStatus().observe(this, Observer {
+            when(it){
+                "online" -> {
+                    binding.chatLogToolbarImage.setStrokeColorResource(R.color.purple_200)
+                    binding.chatLogUserStatus.setBackgroundResource(R.color.purple_200)
+                }
+                "offline" -> {
+                    binding.chatLogToolbarImage.setStrokeColorResource(R.color.grey)
+                    binding.chatLogUserStatus.setBackgroundResource(R.color.grey)
+                }
+                "away" -> {
+                    binding.chatLogToolbarImage.setStrokeColorResource(R.color.orange)
+                    binding.chatLogUserStatus.setBackgroundResource(R.color.orange)
+                }
+                else ->{
+                    binding.chatLogToolbarImage.setStrokeColorResource(R.color.grey)
+                    binding.chatLogUserStatus.setBackgroundResource(R.color.grey)
+                }
+            }
+        })
 
     }
 }

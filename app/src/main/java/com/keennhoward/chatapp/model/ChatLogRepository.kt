@@ -21,11 +21,20 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
 
     private var currentUserData:MutableLiveData<User> = MutableLiveData()
 
+    private var toUserStatus:MutableLiveData<String> = MutableLiveData()
+
     private val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${firebaseAuth.uid}")
+
+    private val toUserRef = FirebaseDatabase.getInstance().getReference("/users/$toId")
 
     init {
         listenForMessages()
         fetchCurrentUser()
+        listenToToUserStatus()
+    }
+
+    fun getToUserStatus(): MutableLiveData<String>{
+        return toUserStatus
     }
 
     fun getCurrentUserData(): MutableLiveData<User> {
@@ -35,8 +44,6 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
         fun getChatLog():MutableLiveData<ArrayList<ChatMessage>>{
         return chatLog
     }
-
-
 
     fun sendMessage(text: String) {
 
@@ -113,6 +120,20 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
+            }
+
+        })
+    }
+
+    private fun listenToToUserStatus(){
+        toUserRef.addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val user = snapshot.getValue(User::class.java)!!
+                toUserStatus.postValue(user.status)
             }
 
         })

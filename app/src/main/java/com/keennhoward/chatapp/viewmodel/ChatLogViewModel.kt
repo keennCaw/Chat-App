@@ -16,12 +16,18 @@ class ChatLogViewModel(toId:String, fromId:String):ViewModel() {
 
     private val currentUserData = repository.getCurrentUserData()
 
+    private val toUserStatus = repository.getToUserStatus()
+
     fun sendMessage(text:String){
         repository.sendMessage(text)
     }
 
     fun getCurrentUserData(): MutableLiveData<User> {
         return currentUserData
+    }
+
+    fun getToUserStatus():MutableLiveData<String>{
+        return toUserStatus
     }
 
 
