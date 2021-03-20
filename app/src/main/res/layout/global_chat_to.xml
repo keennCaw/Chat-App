@@ -11,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:background="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,13 +22,25 @@
         android:id="@+id/chat_item_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
-        android:textColor="@color/black"
+        android:layout_marginTop="24dp"
         android:background="@drawable/their_message"
-        android:padding="16dp"
         android:maxWidth="240dp"
+        android:padding="16dp"
         android:text="This is my message"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/chat_item_image_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chat_item_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/chat_item_message"
         app:layout_constraintStart_toEndOf="@+id/chat_item_image_view"
         app:layout_constraintTop_toTopOf="parent" />
 

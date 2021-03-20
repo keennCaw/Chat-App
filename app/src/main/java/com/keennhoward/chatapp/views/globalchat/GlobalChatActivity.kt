@@ -40,26 +40,41 @@ class GlobalChatActivity : AppCompatActivity() {
 
         val adapter = GroupieAdapter()
         //listen to chat
+        var tempID:String = ""
         globalChatViewModel.getLatestMessage().observe(this, Observer {
             Log.d("GLOBAL", it.toString())
 
+
             if(it.fromId == MainActivity.currentUser!!.uid){
-                adapter.add(
-                    GlobalChatFromItem(
-                        it.text,
-                        it.profileImageUrl,
-                        application
+                if(tempID == it.fromId){
+                    adapter.add(
+                        GlobalChatFromItem(
+                            it.text,
+                            it.profileImageUrl,
+                            application
+                        )
                     )
-                )
+                }else{
+                    adapter.add(
+                        GlobalChatFromItem(
+                            it.text,
+                            it.profileImageUrl,
+                            application
+                        )
+                    )
+                }
+
             }else{
                 adapter.add(
                     GlobalChatToItem(
                         it.text,
                         it.profileImageUrl,
-                        application
+                        application,
+                        it.username
                     )
                 )
             }
+            tempID = it.fromId
             binding.globalChatRecyclerview.scrollToPosition(adapter.itemCount - 1)
         })
 
