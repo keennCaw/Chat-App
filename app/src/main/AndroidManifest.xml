@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatApp">
-        <activity android:name=".views.globalchat.GlobalChatActivity"></activity>
+
 
         <service
             android:name=".service.FirebaseService"
@@ -27,6 +27,11 @@
             android:name=".views.chatlog.ChatLogActivity"
             android:parentActivityName=".views.main.MainActivity"
             android:theme="@style/Theme.ChatApp.NoActionBar" />
+
+        <activity android:name=".views.globalchat.GlobalChatActivity"
+            android:parentActivityName=".views.main.MainActivity"
+            android:theme="@style/Theme.ChatApp.NoActionBar"/>
+
         <activity android:name=".views.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

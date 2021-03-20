@@ -7,6 +7,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.keennhoward.chatapp.data.ChatMessage
+import com.keennhoward.chatapp.data.GlobalMessage
+import com.keennhoward.chatapp.views.main.MainActivity
 
 class GlobalChatRepository {
 
@@ -26,16 +28,15 @@ class GlobalChatRepository {
         return latestMessage
     }
 
-    fun sendMessage(text: String){
-        val chatMessage = ChatMessage(
-            "GLOBAL-ID",
-            text,
+    fun sendMessage(text: String, username:String, profileImgUrl:String){
+        val globalMessage = GlobalMessage(
             firebaseAuth.uid!!,
-            "Global",
-            System.currentTimeMillis() / 1000,
-            true
+            username,
+            text,
+            profileImgUrl,
+            System.currentTimeMillis() / 1000
         )
-        globalMessageRef.setValue(chatMessage)
+        globalMessageRef.setValue(globalMessage)
     }
 
     private fun listenForMessages(){

@@ -15,7 +15,7 @@ class GlobalChatViewModel :ViewModel(){
         return latestMessage
     }
 
-    fun sendMessage(text:String){
-        repository.sendMessage(text)
+    fun sendMessage(text:String, username:String, profileImgUrl:String){
+        repository.sendMessage(text,username,profileImgUrl)
     }
 }

@@ -23,6 +23,7 @@ import com.keennhoward.chatapp.databinding.FragmentMessagesBinding
 import com.keennhoward.chatapp.viewmodel.MessagesViewModel
 import com.keennhoward.chatapp.viewmodel.MessagesViewModelFactory
 import com.keennhoward.chatapp.views.chatlog.ChatLogActivity
+import com.keennhoward.chatapp.views.globalchat.GlobalChatActivity
 
 class MessagesFragment : Fragment(),
     MessageItemClickListener {
@@ -69,7 +70,10 @@ class MessagesFragment : Fragment(),
 
         messagesViewModel.getLatestMessages().observe(requireActivity(), Observer {
             messagesAdapter.submitList(ArrayList<LatestMessage>(it))
-            Log.d("LatestMessageFragment", it.toString())
+
+
+
+            //Log.d("LatestMessageFragment", it.toString())
         })
 
         binding.createMessage.setOnClickListener {
@@ -89,6 +93,11 @@ class MessagesFragment : Fragment(),
                 intent.putExtra(NewMessageFragment.USER_KEY, user)
                 startActivity(intent)
             }
+        }
+
+        binding.messageGlobal.setOnClickListener {
+            val intent = Intent(requireActivity(), GlobalChatActivity::class.java)
+            startActivity(intent)
         }
 
 
