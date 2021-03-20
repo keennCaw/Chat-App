@@ -40,13 +40,9 @@ class GlobalChatActivity : AppCompatActivity() {
 
         val adapter = GroupieAdapter()
         //listen to chat
-        var tempID:String = ""
         globalChatViewModel.getLatestMessage().observe(this, Observer {
             Log.d("GLOBAL", it.toString())
-
-
             if(it.fromId == MainActivity.currentUser!!.uid){
-                if(tempID == it.fromId){
                     adapter.add(
                         GlobalChatFromItem(
                             it.text,
@@ -54,16 +50,6 @@ class GlobalChatActivity : AppCompatActivity() {
                             application
                         )
                     )
-                }else{
-                    adapter.add(
-                        GlobalChatFromItem(
-                            it.text,
-                            it.profileImageUrl,
-                            application
-                        )
-                    )
-                }
-
             }else{
                 adapter.add(
                     GlobalChatToItem(
@@ -74,12 +60,23 @@ class GlobalChatActivity : AppCompatActivity() {
                     )
                 )
             }
-            tempID = it.fromId
             binding.globalChatRecyclerview.scrollToPosition(adapter.itemCount - 1)
         })
 
         binding.globalChatRecyclerview.adapter = adapter
 
+        //adjust position on keyboard open
+        binding.globalChatRecyclerview.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+
+            if(bottom < oldBottom){
+                binding.globalChatRecyclerview.postDelayed(Runnable {
+                    binding.globalChatRecyclerview.smoothScrollToPosition(
+                        bottom
+                    )
+                }, 100)
+            }
+
+        }
 
         //toolbar
 
