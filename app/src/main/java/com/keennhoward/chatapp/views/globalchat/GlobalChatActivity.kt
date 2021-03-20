@@ -10,6 +10,7 @@ import com.keennhoward.chatapp.databinding.ActivityGlobalChatBinding
 import com.keennhoward.chatapp.viewmodel.GlobalChatViewModel
 import com.keennhoward.chatapp.viewmodel.GlobalChatViewModelFactory
 import com.keennhoward.chatapp.views.chatlog.ChatFromItem
+import com.keennhoward.chatapp.views.chatlog.ChatToItem
 import com.keennhoward.chatapp.views.main.MainActivity
 import com.xwray.groupie.GroupieAdapter
 
@@ -44,7 +45,15 @@ class GlobalChatActivity : AppCompatActivity() {
 
             if(it.fromId == MainActivity.currentUser!!.uid){
                 adapter.add(
-                    ChatFromItem(
+                    GlobalChatFromItem(
+                        it.text,
+                        it.profileImageUrl,
+                        application
+                    )
+                )
+            }else{
+                adapter.add(
+                    GlobalChatToItem(
                         it.text,
                         it.profileImageUrl,
                         application
