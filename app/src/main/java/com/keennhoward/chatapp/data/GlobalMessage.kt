@@ -6,4 +6,6 @@ data class GlobalMessage(
     val text:String,
     val profileImageUrl:String,
     val timeStamp:Long
-)
+){
+    constructor():this("","","","",0)
+}

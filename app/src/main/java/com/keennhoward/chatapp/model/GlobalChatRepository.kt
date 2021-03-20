@@ -16,7 +16,7 @@ class GlobalChatRepository {
 
     private val globalMessageRef = FirebaseDatabase.getInstance().getReference("/global-message/")
 
-    private var latestMessage = MutableLiveData<ChatMessage>()
+    private var latestMessage = MutableLiveData<GlobalMessage>()
 
     //private val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${firebaseAuth.uid}")
 
@@ -24,7 +24,7 @@ class GlobalChatRepository {
         listenForMessages()
     }
 
-    fun getLatestMessage():MutableLiveData<ChatMessage>{
+    fun getLatestMessage():MutableLiveData<GlobalMessage>{
         return latestMessage
     }
 
@@ -45,7 +45,7 @@ class GlobalChatRepository {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                val chatMessage = snapshot.getValue(ChatMessage::class.java)
+                val chatMessage = snapshot.getValue(GlobalMessage::class.java)
                 if(chatMessage!=null){
                     latestMessage.postValue(chatMessage!!)
                 }

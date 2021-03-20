@@ -3,6 +3,7 @@ package com.keennhoward.chatapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.keennhoward.chatapp.data.ChatMessage
+import com.keennhoward.chatapp.data.GlobalMessage
 import com.keennhoward.chatapp.model.GlobalChatRepository
 
 class GlobalChatViewModel :ViewModel(){
@@ -11,7 +12,7 @@ class GlobalChatViewModel :ViewModel(){
 
     private var latestMessage = repository.getLatestMessage()
 
-    fun getLatestMessage(): MutableLiveData<ChatMessage>{
+    fun getLatestMessage(): MutableLiveData<GlobalMessage>{
         return latestMessage
     }
 

@@ -2,12 +2,16 @@ package com.keennhoward.chatapp.views.globalchat
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.ActivityGlobalChatBinding
 import com.keennhoward.chatapp.viewmodel.GlobalChatViewModel
 import com.keennhoward.chatapp.viewmodel.GlobalChatViewModelFactory
+import com.keennhoward.chatapp.views.chatlog.ChatFromItem
 import com.keennhoward.chatapp.views.main.MainActivity
+import com.xwray.groupie.GroupieAdapter
 
 class GlobalChatActivity : AppCompatActivity() {
 
@@ -31,6 +35,27 @@ class GlobalChatActivity : AppCompatActivity() {
                 binding.globalChatEditText.text.clear()
             }
         }
+
+
+        val adapter = GroupieAdapter()
+        //listen to chat
+        globalChatViewModel.getLatestMessage().observe(this, Observer {
+            Log.d("GLOBAL", it.toString())
+
+            if(it.fromId == MainActivity.currentUser!!.uid){
+                adapter.add(
+                    ChatFromItem(
+                        it.text,
+                        it.profileImageUrl,
+                        application
+                    )
+                )
+            }
+            binding.globalChatRecyclerview.scrollToPosition(adapter.itemCount - 1)
+        })
+
+        binding.globalChatRecyclerview.adapter = adapter
+
 
         //toolbar
 
