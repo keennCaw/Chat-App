@@ -2,4 +2,5 @@
     <string name="app_name">Chat App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password_reset_message">A Message has been sent to your email with instructions to reset your password.</string>
 </resources>

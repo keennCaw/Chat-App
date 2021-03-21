@@ -94,14 +94,5 @@ class MainRepository(val application: Application) {
     }
 
 
-    private fun experiment(){
-        FirebaseAuth.getInstance().sendPasswordResetEmail("keennwe2b@gmail.com")
-            .addOnCompleteListener {
-                if(it.isSuccessful){
-                    Log.d("RESET_PASS", "EMAIL SENT")
-                }else{
-                    Toast.makeText(application, "User does not exist",Toast.LENGTH_LONG).show()
-                }
-            }
-    }
+
 }

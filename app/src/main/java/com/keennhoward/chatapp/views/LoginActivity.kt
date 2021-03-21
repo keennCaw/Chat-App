@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         //window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         //.LayoutParams.FLAG_FULLSCREEN)
 
-        hideSystemUI()
+        //hideSystemUI()
 
         val factory = LoginViewModelFactory(application)
 
@@ -51,6 +51,10 @@ class LoginActivity : AppCompatActivity() {
         binding.loginRegister.setOnClickListener {
             val registerIntent = Intent(this, RegisterActivity::class.java)
             startActivity(registerIntent)
+        }
+        binding.loginReset.setOnClickListener {
+            val resetPasswordIntent = Intent(this, ResetPasswordActivity::class.java)
+            startActivity(resetPasswordIntent)
         }
 
 
