@@ -73,6 +73,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
+            android:enabled="false"
             android:backgroundTint="@color/light_grey"
             android:inputType="textPersonName"
             android:hint="Username"

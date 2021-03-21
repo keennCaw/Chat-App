@@ -24,6 +24,7 @@ import com.keennhoward.chatapp.viewmodel.MessagesViewModel
 import com.keennhoward.chatapp.viewmodel.MessagesViewModelFactory
 import com.keennhoward.chatapp.views.chatlog.ChatLogActivity
 import com.keennhoward.chatapp.views.globalchat.GlobalChatActivity
+import com.keennhoward.chatapp.views.main.MainActivity
 
 class MessagesFragment : Fragment(),
     MessageItemClickListener {
@@ -157,14 +158,27 @@ class MessagesFragment : Fragment(),
     }
 
     override fun onMessageItemClickListener(messageInfo: LatestMessage) {
-        val user = User(
-            messageInfo.toId,
-            messageInfo.username,
-            messageInfo.profileImageUrl,
-            messageInfo.email,
-            messageInfo.token,
-            messageInfo.status
-        )
+        var user:User
+        if (MainActivity.currentUser!!.uid == messageInfo.toId){
+            user = User(
+                messageInfo.fromId,
+                messageInfo.username,
+                messageInfo.profileImageUrl,
+                messageInfo.email,
+                messageInfo.token,
+                messageInfo.status
+            )
+        }else{
+            user = User(
+                messageInfo.toId,
+                messageInfo.username,
+                messageInfo.profileImageUrl,
+                messageInfo.email,
+                messageInfo.token,
+                messageInfo.status
+            )
+        }
+
 
         val intent = Intent(requireActivity(), ChatLogActivity::class.java)
         intent.putExtra(NewMessageFragment.USER_KEY, user)
