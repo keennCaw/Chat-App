@@ -13,6 +13,10 @@
         <item name="cornerRadius">20dp</item>
     </style>
 
+    <style name="Widget.ChatApp.Button.Cancel" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundColor">#9e0000</item>
+    </style>
+
     <style name="Widget.ChatApp.ShapableImageView.round" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
