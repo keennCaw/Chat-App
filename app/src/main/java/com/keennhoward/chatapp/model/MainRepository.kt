@@ -2,6 +2,7 @@ package com.keennhoward.chatapp.model
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +31,7 @@ class MainRepository(val application: Application) {
         firebaseUser.postValue(firebaseAuth.currentUser)
         fetchCurrentUser()
         getToken()
+        //experiment() //experiment
     }
 
     fun getCurrentUserData(): MutableLiveData<User>{
@@ -89,5 +91,17 @@ class MainRepository(val application: Application) {
 
         })
 
+    }
+
+
+    private fun experiment(){
+        FirebaseAuth.getInstance().sendPasswordResetEmail("keennwe2b@gmail.com")
+            .addOnCompleteListener {
+                if(it.isSuccessful){
+                    Log.d("RESET_PASS", "EMAIL SENT")
+                }else{
+                    Toast.makeText(application, "User does not exist",Toast.LENGTH_LONG).show()
+                }
+            }
     }
 }
