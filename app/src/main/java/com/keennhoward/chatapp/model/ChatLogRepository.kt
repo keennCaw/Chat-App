@@ -102,6 +102,19 @@ class ChatLogRepository(private val toId:String, private val fromId:String) {
         }
     }
 
+    fun readLatestMessage(){
+        val latestRef = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId/$toId")
+        latestRef.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                latestRef.child("read").setValue(true)
+            }
+        })
+
+    }
+
     private fun listenForMessages() {
 
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")

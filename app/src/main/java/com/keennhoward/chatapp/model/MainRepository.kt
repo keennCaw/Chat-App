@@ -30,8 +30,7 @@ class MainRepository(val application: Application) {
     init{
         firebaseUser.postValue(firebaseAuth.currentUser)
         fetchCurrentUser()
-        getToken()
-        //experiment() //experiment
+        //getToken()
     }
 
     fun getCurrentUserData(): MutableLiveData<User>{
@@ -77,7 +76,7 @@ class MainRepository(val application: Application) {
 
 
     //get User Token
-    private fun getToken(){
+    fun getToken(){
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w("MAIN_ACTIVITY", "Fetching FCM registration token failed", task.exception)

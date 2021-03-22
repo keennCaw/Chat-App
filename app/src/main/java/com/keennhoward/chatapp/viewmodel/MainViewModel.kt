@@ -15,6 +15,10 @@ class MainViewModel(application: Application):AndroidViewModel(application) {
 
     private var currentUserData = repository.getCurrentUserData()
 
+    fun getToken(){
+        repository.getToken()
+    }
+
     fun signOut(){
         repository.signOut()
     }

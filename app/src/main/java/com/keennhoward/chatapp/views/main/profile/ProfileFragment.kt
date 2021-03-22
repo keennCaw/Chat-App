@@ -71,7 +71,7 @@ class ProfileFragment : Fragment() {
             binding.profileEditButtons.visibility = View.GONE
             if(inputFieldChecker()){
                 if(selectedPhotoUri!=null){
-                    profileViewModel.updateUserWithImage(selectedPhotoUri!!, binding.profileUsernameEdit.text.toString())
+                    profileViewModel.updateUserWithImage(selectedPhotoUri!!, binding.profileUsernameEdit.text.toString(),MainActivity.currentUser!!.profileImageId)
                 }else{
                     profileViewModel.updateUser(MainActivity.currentUser!!.profileImageUrl, binding.profileUsernameEdit.text.toString())
                 }

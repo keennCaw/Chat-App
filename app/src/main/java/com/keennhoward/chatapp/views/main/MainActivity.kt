@@ -61,11 +61,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(loginIntent)
                 finish()
                 overridePendingTransition(0,0)
+            }else{
+                mainViewModel.getToken()
             }
         })
 
-        mainViewModel.setStatusOnline()
-
+        if(currentUser!=null){
+            mainViewModel.setStatusOnline()
+        }
 
         setContentView(drawerLayout)
         navController = findNavController(R.id.fragment)
@@ -108,7 +111,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        mainViewModel.setStatusAway()
+        if(currentUser!=null){
+            mainViewModel.setStatusAway()
+        }
     }
 
     override fun onStop() {
@@ -118,11 +123,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        mainViewModel.setStatusOnline()
+        if(currentUser!=null){
+            mainViewModel.setStatusOnline()
+        }
     }
 
     override fun onDestroy() {
-        mainViewModel.setStatusOffline()
+        if(currentUser!=null){
+            mainViewModel.setStatusOffline()
+        }
         super.onDestroy()
     }
 }

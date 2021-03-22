@@ -8,8 +8,8 @@ import com.keennhoward.chatapp.model.ProfileRepository
 class ProfileViewModel(application: Application): AndroidViewModel(application)  {
     private val repository = ProfileRepository(application)
 
-    fun updateUserWithImage(uri: Uri, username:String){
-        repository.saveUserChanges(uri,username)
+    fun updateUserWithImage(uri: Uri, username:String, oldImageId:String){
+        repository.saveUserChanges(uri,username,oldImageId)
     }
 
     fun updateUser(profileImageUrl:String, username:String){
