@@ -10,7 +10,8 @@ data class User(
     val profileImageUrl:String,
     val email:String,
     val token:String,
-    val status:String
+    val status:String,
+    val profileImageId:String
 ) : Parcelable {
-    constructor():this("","","","","","")
+    constructor():this("","","","","","","")
 }

@@ -51,14 +51,14 @@ class RegisterRepository(val application: Application){
 
                     Log.d("Register", "File Location: $it")
 
-                    saveUserToFirebaseDatabase(it.toString(), username,email)
+                    saveUserToFirebaseDatabase(it.toString(), username,email,filename)
                 }
             }.addOnFailureListener {
                 Log.d("Register", "failed: ${it.message.toString()}")
             }
     }
 
-    private fun saveUserToFirebaseDatabase(profileImageUrl:String, username: String,email: String){
+    private fun saveUserToFirebaseDatabase(profileImageUrl:String, username: String,email: String,filename:String){
         val uid = firebaseAuth.uid ?: ""
         val firebaseDatabaseReference = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
@@ -68,7 +68,8 @@ class RegisterRepository(val application: Application){
             profileImageUrl,
             email,
             "",
-            "offline"
+            "offline",
+            profileImageId = filename
         )
 
         firebaseDatabaseReference.setValue(user)

@@ -161,21 +161,23 @@ class MessagesFragment : Fragment(),
         var user:User
         if (MainActivity.currentUser!!.uid == messageInfo.toId){
             user = User(
-                messageInfo.fromId,
-                messageInfo.username,
-                messageInfo.profileImageUrl,
-                messageInfo.email,
-                messageInfo.token,
-                messageInfo.status
+                uid = messageInfo.fromId,
+                username = messageInfo.username,
+                profileImageUrl = messageInfo.profileImageUrl,
+                email = messageInfo.email,
+                token = messageInfo.token,
+                status = messageInfo.status,
+                profileImageId = ""
             )
         }else{
             user = User(
-                messageInfo.toId,
-                messageInfo.username,
-                messageInfo.profileImageUrl,
-                messageInfo.email,
-                messageInfo.token,
-                messageInfo.status
+                uid = messageInfo.toId,
+                username = messageInfo.username,
+                profileImageUrl = messageInfo.profileImageUrl,
+                email = messageInfo.email,
+                token = messageInfo.token,
+                status = messageInfo.status,
+                profileImageId = ""
             )
         }
 
