@@ -22,6 +22,10 @@ class ChatLogViewModel(toId:String, fromId:String):ViewModel() {
         repository.sendMessage(text)
     }
 
+    fun latestMessageRead(){
+        repository.readLatestMessage()
+    }
+
     fun getCurrentUserData(): MutableLiveData<User> {
         return currentUserData
     }

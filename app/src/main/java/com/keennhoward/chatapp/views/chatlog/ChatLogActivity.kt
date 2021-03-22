@@ -74,6 +74,9 @@ class ChatLogActivity : AppCompatActivity() {
 
         var chatCount = 0
         chatLogViewModel.getChatLog().observe(this, Observer {
+            if(it!=null){
+                chatLogViewModel.latestMessageRead()
+            }
             if (!chatLoaded) {
                 it.forEach {
                     if (it.fromId == MainActivity.currentUser!!.uid) {
