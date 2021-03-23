@@ -86,4 +86,19 @@ class GlobalChatActivity : AppCompatActivity() {
 
         setContentView(view)
     }
+
+    override fun onPause() {
+        super.onPause()
+        globalChatViewModel.setStatusAway()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        globalChatViewModel.setStatusOnline()
+    }
+
+    override fun onDestroy() {
+        globalChatViewModel.setStatusOffline()
+        super.onDestroy()
+    }
 }

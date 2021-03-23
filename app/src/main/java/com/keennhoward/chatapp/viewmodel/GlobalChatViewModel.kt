@@ -19,4 +19,16 @@ class GlobalChatViewModel :ViewModel(){
     fun sendMessage(text:String, username:String, profileImgUrl:String){
         repository.sendMessage(text,username,profileImgUrl)
     }
+    //User Status
+    fun setStatusOnline(){
+        repository.setUserStatusOnline()
+    }
+
+    fun setStatusOffline(){
+        repository.setStatusOffline()
+    }
+
+    fun setStatusAway(){
+        repository.setStatusAway()
+    }
 }

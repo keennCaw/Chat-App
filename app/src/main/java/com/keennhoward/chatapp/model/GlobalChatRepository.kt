@@ -20,6 +20,8 @@ class GlobalChatRepository {
 
     //private val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${firebaseAuth.uid}")
 
+    private val currentUserRef = FirebaseDatabase.getInstance().getReference("/users/${firebaseAuth.uid}")
+
     init {
         listenForMessages()
     }
@@ -39,6 +41,20 @@ class GlobalChatRepository {
         globalMessageRef.setValue(globalMessage)
     }
 
+
+    //user status
+    fun setStatusAway(){
+        currentUserRef.child("status").setValue("away")
+    }
+
+    fun setStatusOffline(){
+        currentUserRef.child("status").setValue("offline")
+    }
+
+    fun setUserStatusOnline(){
+        currentUserRef.child("status").setValue("online")
+    }
+
     private fun listenForMessages(){
         globalMessageRef.addValueEventListener(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
@@ -52,4 +68,5 @@ class GlobalChatRepository {
             }
         })
     }
+
 }
