@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.data.NotificationData
 import com.keennhoward.chatapp.data.PushNotification
@@ -17,6 +18,8 @@ import com.keennhoward.chatapp.viewmodel.ChatLogViewModelFactory
 import com.keennhoward.chatapp.views.main.MainActivity
 import com.keennhoward.chatapp.views.main.newmessage.NewMessageFragment.Companion.USER_KEY
 import com.xwray.groupie.GroupieAdapter
+import org.imaginativeworld.oopsnointernet.callbacks.ConnectionCallback
+import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
 
 class ChatLogActivity : AppCompatActivity() {
 
@@ -159,6 +162,27 @@ class ChatLogActivity : AppCompatActivity() {
                 }
             }
         })
+
+        // No Internet Snackbar: Fire
+        NoInternetSnackbarFire.Builder(
+            binding.root,
+            lifecycle
+        ).apply {
+            snackbarProperties.apply {
+                connectionCallback = object : ConnectionCallback { // Optional
+                    override fun hasActiveConnection(hasActiveConnection: Boolean) {
+                        // ...
+                    }
+                }
+
+                duration = Snackbar.LENGTH_INDEFINITE // Optional
+                noInternetConnectionMessage = "No active Internet connection!" // Optional
+                onAirplaneModeMessage = "You have turned on the airplane mode!" // Optional
+                snackbarActionText = "Settings" // Optional
+                showActionToDismiss = false // Optional
+                snackbarDismissActionText = "OK" // Optional
+            }
+        }.build()
 
     }
 

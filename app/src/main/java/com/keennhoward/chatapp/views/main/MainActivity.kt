@@ -16,12 +16,16 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.data.User
 import com.keennhoward.chatapp.databinding.ActivityMainBinding
 import com.keennhoward.chatapp.viewmodel.MainViewModel
 import com.keennhoward.chatapp.viewmodel.MainViewModelFactory
 import com.keennhoward.chatapp.views.LoginActivity
+import org.imaginativeworld.oopsnointernet.callbacks.ConnectionCallback
+import org.imaginativeworld.oopsnointernet.dialogs.pendulum.NoInternetDialogPendulum
+import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var mainViewModel: MainViewModel
+
 
     companion object{
         var currentUser: User? = null
@@ -84,6 +89,34 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+        // No Internet Dialog: Pendulum
+        NoInternetDialogPendulum.Builder(
+            this,
+            lifecycle
+        ).apply {
+            dialogProperties.apply {
+                connectionCallback = object : ConnectionCallback { // Optional
+                    override fun hasActiveConnection(hasActiveConnection: Boolean) {
+                        // ...
+                    }
+                }
+
+                cancelable = false // Optional
+                noInternetConnectionTitle = "No Internet" // Optional
+                noInternetConnectionMessage =
+                    "Check your Internet connection and try again." // Optional
+                showInternetOnButtons = true // Optional
+                pleaseTurnOnText = "Please turn on" // Optional
+                wifiOnButtonText = "Wifi" // Optional
+                mobileDataOnButtonText = "Mobile data" // Optional
+
+                onAirplaneModeTitle = "No Internet" // Optional
+                onAirplaneModeMessage = "You have turned on the airplane mode." // Optional
+                pleaseTurnOffText = "Please turn off" // Optional
+                airplaneModeOffButtonText = "Airplane mode" // Optional
+                showAirplaneModeOffButtons = true // Optional
+            }
+        }.build()
 
     }
 

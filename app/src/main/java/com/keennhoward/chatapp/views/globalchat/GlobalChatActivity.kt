@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.keennhoward.chatapp.R
 import com.keennhoward.chatapp.databinding.ActivityGlobalChatBinding
 import com.keennhoward.chatapp.viewmodel.GlobalChatViewModel
@@ -13,6 +14,8 @@ import com.keennhoward.chatapp.views.chatlog.ChatFromItem
 import com.keennhoward.chatapp.views.chatlog.ChatToItem
 import com.keennhoward.chatapp.views.main.MainActivity
 import com.xwray.groupie.GroupieAdapter
+import org.imaginativeworld.oopsnointernet.callbacks.ConnectionCallback
+import org.imaginativeworld.oopsnointernet.snackbars.fire.NoInternetSnackbarFire
 
 class GlobalChatActivity : AppCompatActivity() {
 
@@ -84,7 +87,30 @@ class GlobalChatActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Global Chat"
 
+        // No Internet Snackbar: Fire
+        NoInternetSnackbarFire.Builder(
+            binding.root,
+            lifecycle
+        ).apply {
+            snackbarProperties.apply {
+                connectionCallback = object : ConnectionCallback { // Optional
+                    override fun hasActiveConnection(hasActiveConnection: Boolean) {
+                        // ...
+                    }
+                }
+
+                duration = Snackbar.LENGTH_INDEFINITE // Optional
+                noInternetConnectionMessage = "No active Internet connection!" // Optional
+                onAirplaneModeMessage = "You have turned on the airplane mode!" // Optional
+                snackbarActionText = "Settings" // Optional
+                showActionToDismiss = false // Optional
+                snackbarDismissActionText = "OK" // Optional
+            }
+        }.build()
+
         setContentView(view)
+
+
     }
 
     override fun onPause() {
