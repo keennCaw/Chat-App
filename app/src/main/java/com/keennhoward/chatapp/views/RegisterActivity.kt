@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.keennhoward.chatapp.dialog.LoadingDialog
 import com.keennhoward.chatapp.databinding.ActivityRegisterBinding
@@ -44,6 +45,18 @@ class RegisterActivity : AppCompatActivity() {
             }
         })
 
+        registerViewModel.getFailureListener().observe(this, Observer {
+            val loadingDialog =
+                LoadingDialog(this@RegisterActivity)
+            if(it){
+                //loading dialog
+
+                loadingDialog.startLoadingDialog()
+            }else{
+                //loadingDialog.dismissDialog()
+            }
+        })
+
         binding.registerButton.setOnClickListener {
             if (!inputFieldChecker()) return@setOnClickListener
 
@@ -53,13 +66,6 @@ class RegisterActivity : AppCompatActivity() {
                 binding.registerUsernameEt.text.toString(),
                 selectedPhotoUri!!
             )
-
-
-            //loading dialog
-
-            val loadingDialog =
-                LoadingDialog(this@RegisterActivity)
-            loadingDialog.startLoadingDialog()
         }
 
         binding.registerImage.setOnClickListener {

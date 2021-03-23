@@ -18,6 +18,7 @@ class RegisterRepository(val application: Application){
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    private var failureListener: MutableLiveData<Boolean> = MutableLiveData()
 
     fun register(email:String, password:String, username:String, uri:Uri){
         firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -25,14 +26,22 @@ class RegisterRepository(val application: Application){
                 if(task.isSuccessful){
                     uploadImageToFirebaseStorage(uri,username,email,password)
                     //firebaseUser.postValue(firebaseAuth.currentUser)
+                    failureListener.postValue(true)
                 }else{
                     Toast.makeText(application, "Registration Failed: ${task.exception!!.message}"
                     ,Toast.LENGTH_SHORT).show()
+                    failureListener.postValue(false)
                 }
             }
             .addOnFailureListener {
-                Log.d("Register", "failed: ${it.message.toString()}")
+                //Toast.makeText(application, "Registration Failed: ${it.message.toString()}"
+                 //   ,Toast.LENGTH_SHORT).show()
+                failureListener.postValue(false)
             }
+    }
+
+    fun getFailureListener():MutableLiveData<Boolean>{
+        return failureListener
     }
 
     fun getFirebaseUser() : MutableLiveData<FirebaseUser>{

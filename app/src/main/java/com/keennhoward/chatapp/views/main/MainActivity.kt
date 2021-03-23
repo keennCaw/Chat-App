@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         drawerLayout = binding.root
 
+        supportActionBar!!.hide()
         val factory = MainViewModelFactory(application)
 
         mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             currentUser = it
             if(it != null){
                 updateDrawerHeader(it)
+            }
+            if(currentUser!=null){
+                mainViewModel.setStatusOnline()
+                supportActionBar!!.show()
+                setContentView(drawerLayout)
+                setUpNavDrawer()
             }
         })
 
@@ -71,16 +78,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        if(currentUser!=null){
-            mainViewModel.setStatusOnline()
-        }
 
-        setContentView(drawerLayout)
-        navController = findNavController(R.id.fragment)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
-        binding.navigationView.setupWithNavController(navController)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+
 
         val signOut = binding.navigationView.menu.findItem(R.id.sign_out)
         signOut.setOnMenuItemClickListener {
@@ -117,6 +117,16 @@ class MainActivity : AppCompatActivity() {
                 showAirplaneModeOffButtons = true // Optional
             }
         }.build()
+
+    }
+
+
+    private fun setUpNavDrawer(){
+        navController = findNavController(R.id.fragment)
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+
+        binding.navigationView.setupWithNavController(navController)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
 
