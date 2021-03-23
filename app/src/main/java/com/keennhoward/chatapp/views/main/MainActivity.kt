@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity() {
 
         val signOut = binding.navigationView.menu.findItem(R.id.sign_out)
         signOut.setOnMenuItemClickListener {
-            Toast.makeText(this@MainActivity, "hello", Toast.LENGTH_SHORT).show()
             mainViewModel.signOut()
             true
         }
