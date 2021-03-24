@@ -4,9 +4,10 @@ kotlin coroutines and Glide.
 
 1.0.0
 Features:
--Global chat
--Random chat
--search user
+
+-Global chat  
+-Random chat  
+-search user  
 
 Tested on Android 5.1+ or SDK 22+ Lollipop
 
