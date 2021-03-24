@@ -8,69 +8,85 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/latest_messages_recyclerview"
-            android:layout_centerInParent="true"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:paddingHorizontal="20dp"
-            tools:listitem="@layout/latest_messages_item"
-            android:layout_height="match_parent"/>
+            tools:listitem="@layout/latest_messages_item" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/create_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/design_default_color_primary"
+            android:adjustViewBounds="true"
+            android:background="@drawable/btn_round_purple500"
             android:clickable="true"
             android:focusable="true"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_compose_64"
             app:tint="@color/white" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/message_search_users"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_above="@+id/message_random_user"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/btn_round_purple500"
+            android:backgroundTint="@color/teal_200"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_person_search_24"
             android:visibility="invisible"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/message_random_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_above="@+id/message_global"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/btn_round_purple500"
+            android:backgroundTint="@color/teal_200"
             android:clickable="true"
             android:focusable="true"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_random_64"
             android:visibility="invisible"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <ImageButton
             android:id="@+id/message_global"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_above="@+id/create_message"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="10dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/btn_round_purple500"
+            android:backgroundTint="@color/teal_200"
             android:clickable="true"
             android:focusable="true"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_globe_64"
             android:visibility="invisible"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
     </RelativeLayout>
 
