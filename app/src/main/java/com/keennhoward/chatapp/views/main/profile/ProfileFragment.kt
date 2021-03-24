@@ -65,6 +65,7 @@ class ProfileFragment : Fragment() {
 
         binding.profileEditCancel.setOnClickListener {
             binding.profileEditButtons.visibility = View.GONE
+            binding.profileUsernameEdit.setText(MainActivity.currentUser!!.username)
         }
 
         binding.profileEditSave.setOnClickListener {
