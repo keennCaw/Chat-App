@@ -3,7 +3,8 @@ Realtime Chat Application using Firebase Realtime Database, Firebase Storage, Fi
 kotlin coroutines and Glide.
 
 1.0.0 
-Features: 
+Features:   
+ 
 -Global chat  
 -Random chat  
 -search user  
