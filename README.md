@@ -9,6 +9,7 @@ Features:
 -search user
 
 Tested on Android 5.1+ or SDK 22+ Lollipop
+
 Tested on xhdpi,xxhdpi and hdpi devices
 
 
