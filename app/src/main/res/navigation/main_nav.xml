@@ -22,7 +22,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.keennhoward.chatapp.views.main.settings.SettingsFragment"
-        android:label="Settings"
+        android:label="About"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/newMessageFragment"
