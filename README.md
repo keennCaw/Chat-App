@@ -1,4 +1,4 @@
-# Chat-App
+# Chat-App (Kotlin)
 Realtime Chat Application using Firebase Realtime Database, Firebase Storage, Firebase Authentication, Firebase Cloud Messaging(Notification), Retrofit2, Oops-No-Internet library,
 kotlin coroutines and Glide.
 
