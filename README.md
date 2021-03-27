@@ -10,7 +10,7 @@ Features:
 -search user  
 
 Tested on Android 5.1+ or SDK 22+ Lollipop  
-currently does not work on android 11
+
 
 Tested on xhdpi,xxhdpi and hdpi devices
 
