@@ -35,7 +35,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         val toUser = intent.getParcelableExtra<User>(USER_KEY)
 
-        val factory = ChatLogViewModelFactory(MainActivity.currentUser!!.uid, toUser.uid)
+        val factory = ChatLogViewModelFactory(MainActivity.currentUser!!.uid, toUser!!.uid)
 
         Log.d("CHATLOGMAIN", MainActivity.currentUser!!.username)
         chatLogViewModel = ViewModelProvider(this, factory).get(ChatLogViewModel::class.java)
