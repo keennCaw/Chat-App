@@ -9,10 +9,10 @@ Features:
 -Random chat  
 -search user  
 
-Tested on Android 5.1+ or SDK 22+ Lollipop  
+Works on Android 5.1+ or SDK 22+ Lollipop  
 
 
-Tested on xhdpi,xxhdpi and hdpi devices
+Works on xhdpi,xxhdpi and hdpi devices
 
 
 APK: https://drive.google.com/file/d/1ZDxjsL6u6gaX3kbuNgLpN5vf7lH3DriX/view?usp=sharing
